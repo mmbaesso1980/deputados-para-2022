@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deputados Federais do Pará - Eleitos 2022</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --color-mdb: #15a04a;
+            --color-pt: #d32f2f;
+            --color-pl: #21409a;
+            --color-uniao: #fbc02d;
+            --color-psd: #ff6d00;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        thead {
+            background-color: #ecf0f1;
+        }
+        th {
+            padding: 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #7f8c8d;
+        }
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: white;
+            display: inline-block;
+        }
+        .mdb {
+            background-color: var(--color-mdb);
+        }
+        .pt {
+            background-color: var(--color-pt);
+        }
+        .pl {
+            background-color: var(--color-pl);
+        }
+        .uniao {
+            background-color: var(--color-uniao);
+            color: #000;
+        }
+        .psd {
+            background-color: var(--color-psd);
+        }
+        .votos {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        @media (max-width: 600px) {
+            th:nth-child(3), td:nth-child(3) {
+                display: none;
+            }
+            header h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Deputados Federais do Pará - 2022</h1>
+        <p>Representantes eleitos para a Legislatura 2023-2027</p>
+    </header>
+
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Partido</th>
+                        <th>Votação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dra Alessandra Haber</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">258.907</span></td>
+                    </tr>
+                    <tr>
+                        <td>Delegado Eder Mauro</td>
+                        <td><span class="badge pl">PL</span></td>
+                        <td><span class="votos">205.543</span></td>
+                    </tr>
+                    <tr>
+                        <td>Elcione</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">175.498</span></td>
+                    </tr>
+                    <tr>
+                        <td>Priante</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">167.275</span></td>
+                    </tr>
+                    <tr>
+                        <td>Renilce Nicodemos</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">162.208</span></td>
+                    </tr>
+                    <tr>
+                        <td>Júnior Ferrari</td>
+                        <td><span class="badge psd">PSD</span></td>
+                        <td><span class="votos">160.342</span></td>
+                    </tr>
+                    <tr>
+                        <td>Dilvanda Faro</td>
+                        <td><span class="badge pt">PT</span></td>
+                        <td><span class="votos">150.065</span></td>
+                    </tr>
+                    <tr>
+                        <td>Celso Sabino</td>
+                        <td><span class="badge uniao">UNIÃO</span></td>
+                        <td><span class="votos">142.326</span></td>
+                    </tr>
+                    <tr>
+                        <td>Antonio Doido</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">126.535</span></td>
+                    </tr>
+                    <tr>
+                        <td>Keniston</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">126.027</span></td>
+                    </tr>
+                    <tr>
+                        <td>Andreia Siqueira</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">125.004</span></td>
+                    </tr>
+                    <tr>
+                        <td>Joaquim Passarinho</td>
+                        <td><span class="badge pl">PL</span></td>
+                        <td><span class="votos">122.553</span></td>
+                    </tr>
+                    <tr>
+                        <td>Delegado Caveira</td>
+                        <td><span class="badge pl">PL</span></td>
+                        <td><span class="votos">106.349</span></td>
+                    </tr>
+                    <tr>
+                        <td>Olival Marques</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">102.435</span></td>
+                    </tr>
+                    <tr>
+                        <td>Airton Faleiro</td>
+                        <td><span class="badge pt">PT</span></td>
+                        <td><span class="votos">79.862</span></td>
+                    </tr>
+                    <tr>
+                        <td>Henderson Pinto</td>
+                        <td><span class="badge mdb">MDB</span></td>
+                        <td><span class="votos">74.746</span></td>
+                    </tr>
+                    <tr>
+                        <td>Raimundo Santos</td>
+                        <td><span class="badge psd">PSD</span></td>
+                        <td><span class="votos">62.366</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Fonte: Tribunal Superior Eleitoral (TSE) - Eleições 2022</p>
+        <p>&copy; 2026 - Painel Informativo Legislativo</p>
+    </footer>
+</body>
+</html>
