@@ -165,10 +165,52 @@
                         </div>
                     </div>
                 </div>
+                                  <div class="section">
+                    <h2>🏢 Empresas Relacionadas e Investigações</h2>
+                    <div id="companiesContainer">Carregando dados de empresas...</div>
+                  </div>
             `;
         }
+             function loadCompanies() {
+       fetch('empresas.json')
+         .then(response => response.json())
+         .then(data => {
+           const deputadoName = deputadosData[id]?.nome || 'Deputado';
+           const relatedCompanies = data.empresas.filter(emp => emp.deputado === deputadoName || emp.deputado.split(' ')[0] === deputadoName.split(' ')[0]);
+           
+           if (relatedCompanies.length === 0) {
+             document.getElementById('companiesContainer').innerHTML = '<p style="color: #999;">Nenhuma empresa relacionada encontrada nos registros.</p>';
+             return;
+           }
+           
+           let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
+           relatedCompanies.forEach(emp => {
+             html += `<div style="border: 2px solid #ddd; padding: 15px; border-radius: 8px; background: #fafafa;">
+               <div style="display: flex; justify-content: space-between; align-items: start;">
+                 <div>
+                   <strong style="color: var(--primary);">${emp.nome}</strong>
+                   <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">CNPJ: ${emp.cnpj}</p>
+                 </div>
+                 <span class="badge" style="background: ${emp.status.includes('FALSO') ? '#fee2e2' : emp.status.includes('investigação') ? '#fef3c7' : '#dcfce7'}; color: ${emp.status.includes('FALSO') ? '#991b1b' : emp.status.includes('investigação') ? '#92400e' : '#15803d'};">${emp.status}</span>
+               </div>
+               <p style="margin: 10px 0 0 0; font-size: 0.9em;"><strong>Valor:</strong> ${emp.valor_contrato}</p>
+               <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Emenda:</strong> ${emp.emenda}</p>
+               <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Investigação:</strong> ${emp.investigacao}</p>
+               ${emp.noticias ? '<p style="margin: 10px 0 0 0; font-size: 0.85em;"><strong>Notícias:</strong><br/>' + emp.noticias.map(n => `• ${n}`).join('<br/>') + '</p>' : ''}
+               <p style="margin: 10px 0 0 0; font-size: 0.8em; color: #999;"><strong>Fontes:</strong> ${emp.fontes.join(', ')}</p>
+             </div>`;
+           });
+           html += '</div>';
+           document.getElementById('companiesContainer').innerHTML = html;
+         })
+         .catch(err => {
+           console.log('Erro ao carregar empresas:', err);
+           document.getElementById('companiesContainer').innerHTML = '<p style="color: #999;">Erro ao carregar dados de empresas.</p>';
+         });
+     }
 
         init();
+             loadCompanies();
     </script>
 </body>
 </html>
