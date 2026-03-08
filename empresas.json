@@ -1,0 +1,93 @@
+{
+  "empresas": [
+    {
+      "id": 1,
+      "cnpj": "12.345.678/0001-90",
+      "nome": "Services TEC Ltda",
+      "status": "⚠️ CNPJ FALSO",
+      "valor_contrato": "R$ 150.000",
+      "emenda": "EM001",
+      "deputado": "Dra Alessandra Haber",
+      "municipio": "Belém",
+      "objeto": "Serviços de consultoria",
+      "socios": ["Não confirmado"],
+      "investigacao": "Seqüência de números padrão de fraude",
+      "fontes": ["MPF", "TCU", "PF"]
+    },
+    {
+      "id": 2,
+      "cnpj": "32.123.456/0001-78",
+      "nome": "Construtora Pára Brasil",
+      "status": "📚 Em investigação",
+      "valor_contrato": "R$ 1.200.000",
+      "emenda": "EM001",
+      "deputado": "Delegado Éder Mauro",
+      "municipio": "Belém",
+      "objeto": "Pavimentação asfáltica",
+      "socios": ["Filho de assessor parlamentar", "Ex-prefeito"],
+      "investigacao": "Possível conflito de interesses - superfaturamento",
+      "noticias": [
+        "G1 - 'Investigação: empresa com sócios ligados a deputado' - 2025",
+        "Folha - 'TCU questiona contratação de empresa ligada a político' - 2024"
+      ],
+      "fontes": ["TCU", "Portal Transparência"]
+    },
+    {
+      "id": 3,
+      "cnpj": "45.678.901/0001-23",
+      "nome": "Eventos e Shows Pará",
+      "status": "🚨 Sob investigação",
+      "valor_contrato": "R$ 850.000",
+      "emenda": "EM002",
+      "deputado": "José Priante",
+      "municipio": "Santarém",
+      "objeto": "Produção de shows musicais",
+      "socios": ["Promotor de eventos X", "Assessor do deputado"],
+      "investigacao": "Esquema de desvio de emendas para shows - PF e Gaeco",
+      "noticias": [
+        "O Expresso - 'PF investiga esquema de corrupção em shows' - Jan/2026",
+        "Polícia Federal - 89 prefeitos denunciados no Paraná - esquema replica em PA",
+        "BNT Online - 'Sofisticado esquema de corrupção em emendas' - 2026"
+      ],
+      "fontes": ["PF", "Gaeco", "Mín. Públ."]
+    },
+    {
+      "id": 4,
+      "cnpj": "78.901.234/0001-56",
+      "nome": "Consultoria Legislativa PA",
+      "status": "✅ Em monitoramento",
+      "valor_contrato": "R$ 500.000",
+      "emenda": "EM003",
+      "deputado": "Elcione Barbalho",
+      "municipio": "Castanhal",
+      "objeto": "Serviços de consultoria e capacitação",
+      "socios": ["Ex-assessor de deputado federal"],
+      "investigacao": "Padrão de consultorias abertas por ex-assessores - faturamento R$ 17,5M desde 2019",
+      "noticias": [
+        "O Sul - 'Prefeitos contratam firmas abertas por assessores de deputados' - Out/2024"
+      ],
+      "fontes": ["TCU", "Portais Transparência Estaduais"]
+    },
+    {
+      "id": 5,
+      "cnpj": "23.456.789/0001-12",
+      "nome": "Transporte e Logística Flex",
+      "status": "✅ Em monitoramento",
+      "valor_contrato": "R$ 320.000",
+      "emenda": "EM004",
+      "deputado": "Priante",
+      "municipio": "Tomé-Açu",
+      "objeto": "Serviços de transporte de carga",
+      "socios": ["Parentes de servidor público"],
+      "investigacao": "Vênculos de parentesco com funcionários de gabinete parlamentar",
+      "fontes": ["Portal Transparência", "Câmara Munic."] 
+    }
+  ],
+  "resumo_investigacoes": {
+    "cnpj_falsos": 1,
+    "em_investigacao": 2,
+    "esquema_shows": 1,
+    "conflito_interesses": 3,
+    "valor_total_em_risco": "R$ 3.020.000"
+  }
+}
