@@ -112,7 +112,7 @@
                 <input type="password" id="regPassword" placeholder="Mínimo 8 caracteres">
             </div>
             <button class="btn btn-primary" onclick="registerUser()">SE REGISTRAR - 7 DIAS GRÁTIS</button>
-            <button class="btn btn-stripe" onclick="processStripePayment()">
+            <button class="btn btn-stripe id="stripePaymentBtn"" onclick="processStripePayment()">
                 <span>💳</span> Desbloquear Acesso Vitalício (Stripe)
             </button>
         </div>
@@ -146,6 +146,11 @@
             localStorage.setItem('fiscalizapa_user', JSON.stringify(user));
             localStorage.setItem('fiscalizapa_email', email);
             alert('✅ Registro realizado! Você tem 7 dias de acesso gratuito.\nRedirecionando...');
+                        // Hide Stripe payment button for non-authorized users
+            const stripeBtn = document.getElementById('stripePaymentBtn');
+            if (stripeBtn && email !== 'mmbaesso@hotmail.com') {
+              stripeBtn.style.display = 'none';
+            }
             window.location.href = 'index.html';
         }
 
