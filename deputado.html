@@ -1,216 +1,249 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Deputado - FiscalizaPA</title>
+    <title>FiscalizaPA - Perfil do Deputado</title>
     <style>
-        :root {
-            --primary: #1a472a;
-            --secondary: #2d5a3d;
-            --accent: #15a34a;
-            --bg: #f4f7f6;
-            --white: #ffffff;
-            --text: #333;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        header { background: var(--primary); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-back { color: white; text-decoration: none; font-weight: bold; border: 1px solid white; padding: 8px 16px; border-radius: 6px; }
-        
-        .profile-section { background: white; padding: 30px; border-radius: 12px; display: flex; gap: 30px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .profile-img { font-size: 80px; background: #eee; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-        .profile-info h1 { font-size: 2em; color: var(--primary); }
-        
-        .grid-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--accent); }
-        .stat-card h3 { font-size: 0.9em; color: #666; margin-bottom: 10px; }
-        .stat-card .value { font-size: 1.8em; font-weight: bold; color: var(--primary); }
-        
-        .section { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .section h2 { border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 20px; color: var(--primary); }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #f9f9f9; color: #666; font-size: 0.9em; }
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
-        .badge-success { background: #dcfce7; color: #15803d; }
-        .badge-warning { background: #fef9c3; color: #854d0e; }
-        
-        .loading { text-align: center; padding: 50px; font-size: 1.2em; color: #666; }
+        header {
+            background-color: #1a472a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #1a472a;
+            border-bottom: 2px solid #1a472a;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #1a472a;
+            color: white;
+        }
+        .alert {
+            color: red;
+            font-weight: bold;
+        }
+        #perfil img {
+            max-width: 200px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>FiscalizaPA - Fiscalização de Deputados Federais do Pará</h1>
+    </header>
     <div class="container">
-        <header>
-            <div id="headerTitle">Carregando Deputado...</div>
-            <a href="index.html" class="btn-back">← Voltar</a>
-        </header>
-
-        <div id="content" class="loading">Buscando informações oficiais...</div>
+        <section id="perfil">
+            <h2>Perfil do Deputado</h2>
+            <div id="perfil-content"></div>
+        </section>
+        <section id="gastos">
+            <h2>Gastos CEAP (Detalhados Nota-por-Nota)</h2>
+            <table id="gastos-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Fornecedor</th>
+                        <th>CNPJ/CPF</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+        <section id="presenca">
+            <h2>Presença em Sessões</h2>
+            <div id="presenca-content"></div>
+        </section>
+        <section id="proposicoes">
+            <h2>Proposições e Projetos de Lei</h2>
+            <ul id="proposicoes-list"></ul>
+        </section>
+        <section id="emendas">
+            <h2>Emendas e Contratos</h2>
+            <div id="emendas-content"></div>
+        </section>
+        <section id="analise-idh">
+            <h2>Análise IDH vs Investimentos</h2>
+            <div id="analise-idh-content"></div>
+        </section>
+        <section id="auditoria-cnpj">
+            <h2>Auditoria de CNPJ</h2>
+            <div id="auditoria-cnpj-content"></div>
+        </section>
+        <section id="ranking">
+            <h2>Ranking Político</h2>
+            <div id="ranking-content"></div>
+        </section>
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-        const deputadosData = {
-            '1': { nome: 'Dra Alessandra Haber', partido: 'MDB', votos: '258.907', foto: '🎓', presenca: '92%', gastos: 'R$ 412.500', emendas: 14, contratos: 8 },
-            '2': { nome: 'Delegado Éder Mauro', partido: 'PL', votos: '205.543', foto: '👮', presenca: '88%', gastos: 'R$ 545.200', emendas: 9, contratos: 5 }
-            // Os outros 15 serão carregados dinamicamente via API no futuro
-        };
-
-        const emendasData = [
-            { id: 'EM001', municipio: 'Belém', valor: 'R$ 1.200.000', objeto: 'Pavimentação Asfáltica', status: 'Pago', contrato: 'CONTR-123/2025' },
-            { id: 'EM002', municipio: 'Ananindeua', valor: 'R$ 850.000', objeto: 'Equipamentos Saúde', status: 'Empenhado', contrato: 'CONTR-456/2025' },
-            { id: 'EM003', municipio: 'Santarém', valor: 'R$ 500.000', objeto: 'Reforma de Praça', status: 'Em Análise', contrato: 'PENDENTE' }
+        const deputados = [
+            { nome: 'Airton Faleiro', idCamara: 204495 },
+            { nome: 'Andreia Siqueira', idCamara: 220676 },
+            { nome: 'Antônio Doido', idCamara: 220675 },
+            { nome: 'Celso Sabino', idCamara: 204496 },
+            { nome: 'Delegado Caveira', idCamara: 220673 },
+            { nome: 'Delegado Éder Mauro', idCamara: 178908 },
+            { nome: 'Dilvanda Faro', idCamara: 220671 },
+            { nome: 'Dra. Alessandra Haber', idCamara: 220674 },
+            { nome: 'Elcione Barbalho', idCamara: 74075 },
+            { nome: 'Henderson Pinto', idCamara: 220672 },
+            { nome: 'Joaquim Passarinho', idCamara: 178910 },
+            { nome: 'José Priante', idCamara: 74079 },
+            { nome: 'Júnior Ferrari', idCamara: 204497 },
+            { nome: 'Keniston Braga', idCamara: 220677 },
+            { nome: 'Olival Marques', idCamara: 204498 },
+            { nome: 'Raimundo Santos', idCamara: 74084 },
+            { nome: 'Renilce Nicodemos', idCamara: 153423 }
         ];
 
-        function init() {
-            const dep = deputadosData[id] || { nome: 'Deputado Federal', partido: 'PA', votos: 'N/A', foto: '👤', presenca: '75%', gastos: 'R$ 300k+', emendas: 5, contratos: 3 };
-            
-            document.getElementById('headerTitle').innerText = dep.nome + " (" + dep.partido + ")";
-            
-            document.getElementById('content').innerHTML = `
-                <div class="profile-section">
-                    <div class="profile-img">${dep.foto}</div>
-                    <div class="profile-info">
-                        <h1>${dep.nome}</h1>
-                        <p style="color: #666; margin-top: 5px;">Deputado Federal pelo Pará | Legislatura 2023-2027</p>
-                        <div style="margin-top: 15px;">
-                            <span class="badge" style="background: #e0e0e0; color: #333;">ID Câmara: 22067${id}</span>
-                            <span class="badge" style="background: #1a472a; color: white;">Ranking: #${id} no PA</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid-dashboard">
-                    <div class="stat-card">
-                        <h3>Presença em Sessões</h3>
-                        <div class="value">${dep.presenca}</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Gastos Totais (CEAP)</h3>
-                        <div class="value">${dep.gastos}</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Emendas Enviadas</h3>
-                        <div class="value">${dep.emendas}</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Contratos Fiscalizados</h3>
-                        <div class="value">${dep.contratos}</div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>📋 Emendas e Contratos Relacionados</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>CÓDIGO</th>
-                                <th>MUNICÍPIO</th>
-                                <th>VALOR</th>
-                                <th>OBJETO</th>
-                                <th>STATUS</th>
-                                <th>CONTRATO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${emendasData.map(e => `
-                                <tr>
-                                    <td><strong>${e.id}</strong></td>
-                                    <td>${e.municipio}</td>
-                                    <td>${e.valor}</td>
-                                    <td>${e.objeto}</td>
-                                    <td><span class="badge ${e.status === 'Pago' ? 'badge-success' : 'badge-warning'}">${e.status}</span></td>
-                                    <td><a href="#" style="color: var(--accent); font-weight: bold;">${e.contrato}</a></td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="section">
-                    <h2>📊 Detalhamento de Gastos (CEAP)</h2>
-                    <p style="color: #666;">Distribuição de recursos da Cota para o Exercício da Atividade Parlamentar.</p>
-                    <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
-                        <div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Divulgação da Atividade Parlamentar</span>
-                                <span>45%</span>
-                            </div>
-                            <div style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden;">
-                                <div style="width: 45%; height: 100%; background: var(--primary);"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Passagens Aéreas e Estadias</span>
-                                <span>30%</span>
-                            </div>
-                            <div style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden;">
-                                <div style="width: 30%; height: 100%; background: var(--secondary);"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Combustível e Manutenção</span>
-                                <span>15%</span>
-                            </div>
-                            <div style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden;">
-                                <div style="width: 15%; height: 100%; background: var(--accent);"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                                  <div class="section">
-                    <h2>🏢 Empresas Relacionadas e Investigações</h2>
-                    <div id="companiesContainer">Carregando dados de empresas...</div>
-                  </div>
-            `;
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = parseInt(urlParams.get('id')) - 1; // 1-based to 0-based index
+        if (id < 0 || id >= deputados.length) {
+            document.body.innerHTML = '<h1>Deputado não encontrado</h1>';
+            return;
         }
-             function loadCompanies() {
-       fetch('empresas.json')
-         .then(response => response.json())
-         .then(data => {
-           const deputadoName = deputadosData[id]?.nome || 'Deputado';
-           const relatedCompanies = data.empresas.filter(emp => emp.deputado === deputadoName || emp.deputado.split(' ')[0] === deputadoName.split(' ')[0]);
-           
-           if (relatedCompanies.length === 0) {
-             document.getElementById('companiesContainer').innerHTML = '<p style="color: #999;">Nenhuma empresa relacionada encontrada nos registros.</p>';
-             return;
-           }
-           
-           let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
-           relatedCompanies.forEach(emp => {
-             html += `<div style="border: 2px solid #ddd; padding: 15px; border-radius: 8px; background: #fafafa;">
-               <div style="display: flex; justify-content: space-between; align-items: start;">
-                 <div>
-                   <strong style="color: var(--primary);">${emp.nome}</strong>
-                   <p style="color: #666; margin: 5px 0 0 0; font-size: 0.9em;">CNPJ: ${emp.cnpj}</p>
-                 </div>
-                 <span class="badge" style="background: ${emp.status.includes('FALSO') ? '#fee2e2' : emp.status.includes('investigação') ? '#fef3c7' : '#dcfce7'}; color: ${emp.status.includes('FALSO') ? '#991b1b' : emp.status.includes('investigação') ? '#92400e' : '#15803d'};">${emp.status}</span>
-               </div>
-               <p style="margin: 10px 0 0 0; font-size: 0.9em;"><strong>Valor:</strong> ${emp.valor_contrato}</p>
-               <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Emenda:</strong> ${emp.emenda}</p>
-               <p style="margin: 5px 0 0 0; font-size: 0.9em;"><strong>Investigação:</strong> ${emp.investigacao}</p>
-               ${emp.noticias ? '<p style="margin: 10px 0 0 0; font-size: 0.85em;"><strong>Notícias:</strong><br/>' + emp.noticias.map(n => `• ${n}`).join('<br/>') + '</p>' : ''}
-               <p style="margin: 10px 0 0 0; font-size: 0.8em; color: #999;"><strong>Fontes:</strong> ${emp.fontes.join(', ')}</p>
-             </div>`;
-           });
-           html += '</div>';
-           document.getElementById('companiesContainer').innerHTML = html;
-         })
-         .catch(err => {
-           console.log('Erro ao carregar empresas:', err);
-           document.getElementById('companiesContainer').innerHTML = '<p style="color: #999;">Erro ao carregar dados de empresas.</p>';
-         });
-     }
+        const deputado = deputados[id];
+        const apiBase = 'https://dadosabertos.camara.leg.br/api/v2';
 
-        init();
-             loadCompanies();
+        async function loadData() {
+            // Load perfil
+            const perfilRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}`);
+            const perfilData = await perfilRes.json();
+            const perfil = perfilData.dados;
+            document.getElementById('perfil-content').innerHTML = `
+                <img src="${perfil.urlFoto}" alt="${perfil.nome}">
+                <p><strong>Nome:</strong> ${perfil.nome}</p>
+                <p><strong>Partido:</strong> ${perfil.siglaPartido}</p>
+                <p><strong>UF:</strong> ${perfil.siglaUf}</p>
+                <p><strong>Email:</strong> ${perfil.email}</p>
+            `;
+
+            // Load gastos CEAP (despesas nota-por-nota)
+            const despesasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/despesas?itens=100&ordem=ASC&ordenarPor=ano`);
+            const despesasData = await despesasRes.json();
+            const tbody = document.querySelector('#gastos-table tbody');
+            despesasData.dados.forEach(despesa => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${despesa.dataDocumento || 'N/A'}</td>
+                    <td>${despesa.tipoDespesa}</td>
+                    <td>R$ ${despesa.valorDocumento.toFixed(2)}</td>
+                    <td>${despesa.nomeFornecedor}</td>
+                    <td>${despesa.cnpjCpfFornecedor}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Load presença em sessões
+            const presencasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/presencasDias?dataInicio=2023-01-01&dataFim=2026-03-09`);
+            const presencasData = await presencasRes.json();
+            let presencaHtml = '<p>Presenças em sessões:</p><ul>';
+            presencasData.dados.forEach(dia => {
+                presencaHtml += `<li>${dia.data}: ${dia.presenca} (Justificativa: ${dia.justificativa || 'N/A'})</li>`;
+            });
+            presencaHtml += '</ul>';
+            document.getElementById('presenca-content').innerHTML = presencaHtml;
+
+            // Load proposições
+            const proposicoesRes = await fetch(`${apiBase}/proposicoes?autorId=${deputado.idCamara}&itens=10`);
+            const proposicoesData = await proposicoesRes.json();
+            const proposicoesList = document.getElementById('proposicoes-list');
+            proposicoesData.dados.forEach(prop => {
+                const li = document.createElement('li');
+                li.textContent = `${prop.siglaTipo} ${prop.numero}/${prop.ano} - ${prop.ementa}`;
+                proposicoesList.appendChild(li);
+            });
+
+            // Load emendas
+            const emendasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/emendas?ano=2023`);
+            const emendasData = await emendasRes.json();
+            let emendasHtml = '<p>Emendas:</p><ul>';
+            emendasData.dados.forEach(emenda => {
+                emendasHtml += `<li>${emenda.codigoEmenda} - Valor: R$ ${emenda.valor} - Local: ${emenda.localidadeBeneficiario}</li>`;
+            });
+            emendasHtml += '</ul>';
+            document.getElementById('emendas-content').innerHTML = emendasHtml;
+
+            // Load JSON files
+            const idhRes = await fetch('idh_municipios.json');
+            const idhData = await idhRes.json();
+            const empresasRes = await fetch('empresas.json');
+            const empresasData = await empresasRes.json();
+
+            // Análise IDH vs Investimentos (incluindo componentes: longevidade, educação, renda)
+            let analiseHtml = '<p>Análise exemplificativa considerando componentes do IDH (longevidade, educação, renda):</p>';
+            const municipioExemplo = 'Belém'; // Exemplo
+            const idhMunicipio = idhData[municipioExemplo] || { idh: 0.7, longevidade: 0.8, educacao: 0.6, renda: 0.7 };
+            if (idhMunicipio.longevidade < 0.6) {
+                analiseHtml += '<p class="alert">Longevidade baixa, verifique investimentos em saúde.</p>';
+            }
+            if (idhMunicipio.educacao < 0.6) {
+                analiseHtml += '<p class="alert">Educação baixa, mas pode ter gastos em outros itens.</p>';
+            }
+            if (idhMunicipio.renda < 0.6) {
+                analiseHtml += '<p class="alert">Renda baixa, análise de emendas para desenvolvimento econômico.</p>';
+            }
+            // Exemplo de checagem com gastos
+            const hasShow = despesasData.dados.some(d => d.tipoDespesa.toLowerCase().includes('show'));
+            if (hasShow && idhMunicipio.idh < 0.6) {
+                analiseHtml += '<p class="alert">IDH geral baixo (saneamento exemplo 0%), mas contratou show!</p>';
+            } else {
+                analiseHtml += '<p>Investimentos parecem alinhados com componentes do IDH.</p>';
+            }
+            document.getElementById('analise-idh-content').innerHTML = analiseHtml;
+
+            // Auditoria CNPJ
+            let auditoriaHtml = '<p>Auditoria de CNPJ:</p><ul>';
+            despesasData.dados.forEach(despesa => {
+                const cnpj = despesa.cnpjCpfFornecedor;
+                if (empresasData[cnpj] && empresasData[cnpj].status === 'irregular') {
+                    auditoriaHtml += `<li class="alert">CNPJ ${cnpj} irregular! Fornecedor: ${despesa.nomeFornecedor}</li>`;
+                }
+            });
+            auditoriaHtml += '</ul>';
+            document.getElementById('auditoria-cnpj-content').innerHTML = auditoriaHtml;
+
+            // Ranking Político (exemplo)
+            const totalPresencas = presencasData.dados.filter(d => d.presenca === 'Presença').length;
+            const totalSessões = presencasData.dados.length;
+            const presencaPercent = (totalPresencas / totalSessões) * 100;
+            const totalGastos = despesasData.dados.reduce((sum, d) => sum + d.valorDocumento, 0);
+            const rankingScore = presencaPercent - (totalGastos / 10000); // Fórmula arbitrária
+            document.getElementById('ranking-content').innerHTML = `<p>Score de Ranking: ${rankingScore.toFixed(2)} (Baseado em presença e gastos)</p>`;
+        }
+
+        window.onload = loadData;
     </script>
 </body>
 </html>
+```
