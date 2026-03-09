@@ -5,244 +5,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FiscalizaPA - Perfil do Deputado</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #1a472a;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #1a472a;
-            border-bottom: 2px solid #1a472a;
-            padding-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        table th {
-            background-color: #1a472a;
-            color: white;
-        }
-        .alert {
-            color: red;
-            font-weight: bold;
-        }
-        #perfil img {
-            max-width: 200px;
-            border-radius: 50%;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; }
+        header { background-color: #1a472a; color: white; padding: 20px; text-align: center; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #1a472a; border-bottom: 2px solid #1a472a; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table th, table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        table th { background-color: #1a472a; color: white; }
+        .alert { color: red; font-weight: bold; }
+        #perfil-content img { max-width: 200px; border-radius: 50%; }
+        .btn-back { display: inline-block; margin: 10px 0; padding: 8px 16px; background: #1a472a; color: white; text-decoration: none; border-radius: 5px; }
+        .btn-back:hover { background: #2d5a3d; }
+        .orgao-item { padding: 5px 0; border-bottom: 1px solid #eee; }
+        .prop-item { padding: 5px 0; border-bottom: 1px solid #eee; margin-bottom: 5px; }
     </style>
 </head>
 <body>
     <header>
-        <h1>FiscalizaPA - Fiscalização de Deputados Federais do Pará</h1>
+        <h1>FiscalizaPA - Fiscaliza&ccedil;&atilde;o de Deputados Federais do Par&aacute;</h1>
     </header>
     <div class="container">
-        <section id="perfil">
-            <h2>Perfil do Deputado</h2>
-            <div id="perfil-content"></div>
-        </section>
-        <section id="gastos">
-            <h2>Gastos CEAP (Detalhados Nota-por-Nota)</h2>
-            <table id="gastos-table">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Descrição</th>
-                        <th>Valor</th>
-                        <th>Fornecedor</th>
-                        <th>CNPJ/CPF</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-        <section id="presenca">
-            <h2>Presença em Sessões</h2>
-            <div id="presenca-content"></div>
-        </section>
-        <section id="proposicoes">
-            <h2>Proposições e Projetos de Lei</h2>
-            <ul id="proposicoes-list"></ul>
-        </section>
-        <section id="emendas">
-            <h2>Emendas e Contratos</h2>
-            <div id="emendas-content"></div>
-        </section>
-        <section id="analise-idh">
-            <h2>Análise IDH vs Investimentos</h2>
-            <div id="analise-idh-content"></div>
-        </section>
-        <section id="auditoria-cnpj">
-            <h2>Auditoria de CNPJ</h2>
-            <div id="auditoria-cnpj-content"></div>
-        </section>
-        <section id="ranking">
-            <h2>Ranking Político</h2>
-            <div id="ranking-content"></div>
-        </section>
+        <a href="index.html" class="btn-back">&larr; Voltar</a>
+        <h2>Perfil do Deputado</h2>
+        <div id="perfil-content">Carregando perfil...</div>
+
+        <h2>Gastos CEAP (Detalhados Nota-por-Nota)</h2>
+        <table id="gastos-table">
+            <thead><tr><th>Data</th><th>Descri&ccedil;&atilde;o</th><th>Valor</th><th>Fornecedor</th><th>CNPJ/CPF</th></tr></thead>
+            <tbody><tr><td colspan="5">Carregando gastos...</td></tr></tbody>
+        </table>
+
+        <h2>Presen&ccedil;a em &Oacute;rg&atilde;os e Comiss&otilde;es</h2>
+        <div id="presenca-content">Carregando dados...</div>
+
+        <h2>Proposi&ccedil;&otilde;es e Projetos de Lei</h2>
+        <div id="proposicoes-content">Carregando proposicoes...</div>
+
+        <h2>Emendas e Contratos</h2>
+        <div id="emendas-content">Carregando emendas...</div>
+
+        <h2>An&aacute;lise IDH vs Investimentos</h2>
+        <div id="analise-idh-content">Carregando analise IDH...</div>
+
+        <h2>Auditoria de CNPJ</h2>
+        <div id="auditoria-cnpj-content">Carregando auditoria...</div>
+
+        <h2>Ranking Pol&iacute;tico</h2>
+        <div id="ranking-content">Carregando ranking...</div>
     </div>
 
     <script>
-        const deputados = [
-            { nome: 'Airton Faleiro', idCamara: 220593 },
-                        { nome: 'Dra Alessandra Haber', idCamara: 220671 },
-            { nome: 'Cassio Andrade', idCamara: 204554 },
-            { nome: 'Cavalcante', idCamara: 220533 },
-            { nome: 'Delegado Caveira', idCamara: 220672 },
-            { nome: 'Delegado Eder Mauro', idCamara: 178908 },
-            { nome: 'Elcione Barbalho', idCamara: 74646 },
-            { nome: 'Helio Leite', idCamara: 220673 },
-            { nome: 'Joaquim Passarinho', idCamara: 204557 },
-            { nome: 'Josue Bengtson', idCamara: 204394 },
-            { nome: 'Junior Ferrari', idCamara: 220675 },
-            { nome: 'Luciano Cavalcante', idCamara: 220676 },
-            { nome: 'Pastor Sargento Isidorio', idCamara: 204396 },
-            { nome: 'Priante', idCamara: 73893 },
-            { nome: 'Professor Irineu', idCamara: 220678 },
-            { nome: 'Renilce Nicodemos', idCamara: 220679 },
-            { nome: 'Socorro Neri', idCamara: 220680 }
-        ];
+    const deputados = [
+        {nome:'Airton Faleiro',idCamara:220593},
+        {nome:'Dra Alessandra Haber',idCamara:220671},
+        {nome:'Cassio Andrade',idCamara:204554},
+        {nome:'Cavalcante',idCamara:220533},
+        {nome:'Delegado Caveira',idCamara:220672},
+        {nome:'Delegado Eder Mauro',idCamara:178908},
+        {nome:'Elcione Barbalho',idCamara:74646},
+        {nome:'Helio Leite',idCamara:220673},
+        {nome:'Joaquim Passarinho',idCamara:204557},
+        {nome:'Josue Bengtson',idCamara:204394},
+        {nome:'Junior Ferrari',idCamara:220675},
+        {nome:'Luciano Cavalcante',idCamara:220676},
+        {nome:'Pastor Sargento Isidorio',idCamara:204396},
+        {nome:'Priante',idCamara:73893},
+        {nome:'Professor Irineu',idCamara:220678},
+        {nome:'Renilce Nicodemos',idCamara:220679},
+        {nome:'Socorro Neri',idCamara:220680}
+    ];
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = parseInt(urlParams.get('id')) - 1; // 1-based to 0-based index
-        if (id < 0 || id >= deputados.length) {
-            document.body.innerHTML = '<h1>Deputado não encontrado</h1>';
-            throw new Error('not found');
-        }
-        const deputado = deputados[id];
+    async function fetchJSON(url) {
+        const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!response.ok) { throw new Error('Erro HTTP: ' + response.status); }
+        return response.json();
+    }
+
+    async function loadData(idCamara) {
         const apiBase = 'https://dadosabertos.camara.leg.br/api/v2';
-                const headers = { 'Accept': 'application/json' };
-                async function fetchJSON(url) { const sep = url.includes('?') ? '&' : '?'; return fetch(url + sep + 'formato=json', {headers}); }
+        let despesas = null;
+        let totalGastos = 0;
 
-        async function loadData() {
-                                const perfilRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}`);
-            const perfilData = await perfilRes.json();
-            const perfil = perfilData.dados;
-            document.getElementById('perfil-content').innerHTML = `
-                <img src="${perfil.ultimoStatus.urlFoto}" alt="${perfil.ultimoStatus.nome}">
-                <p><strong>Nome:</strong> ${perfil.ultimoStatus.nome}</p>
-                <p><strong>Partido:</strong> ${perfil.ultimoStatus.siglaPartido}</p>
-                <p><strong>UF:</strong> ${perfil.ultimoStatus.siglaUf}</p>
-                <p><strong>Email:</strong> ${perfil.ultimoStatus.gabinete.email}</p>
-            `;
-
-            // Load gastos CEAP (despesas nota-por-nota)
-            const despesasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/despesas?itens=100&ordem=ASC&ordenarPor=ano`);
-            const despesasData = await despesasRes.json();
-            const tbody = document.querySelector('#gastos-table tbody');
-            despesasData.dados.forEach(despesa => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${despesa.dataDocumento || 'N/A'}</td>
-                    <td>${despesa.tipoDespesa}</td>
-                    <td>R$ ${despesa.valorDocumento.toFixed(2)}</td>
-                    <td>${despesa.nomeFornecedor}</td>
-                    <td>${despesa.cnpjCpfFornecedor}</td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            // Load presença em sessões
-            const presencasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/presencasDias?dataInicio=2023-01-01&dataFim=2026-03-09`);
-            const presencasData = await presencasRes.json();
-            let presencaHtml = '<p>Presenças em sessões:</p><ul>';
-            presencasData.dados.forEach(dia => {
-                presencaHtml += `<li>${dia.data}: ${dia.presenca} (Justificativa: ${dia.justificativa || 'N/A'})</li>`;
-            });
-            presencaHtml += '</ul>';
-            document.getElementById('presenca-content').innerHTML = presencaHtml;
-
-            // Load proposições
-            const proposicoesRes = await fetchJSON(`${apiBase}/proposicoes?autorId=${deputado.idCamara}&itens=10`);
-            const proposicoesData = await proposicoesRes.json();
-            const proposicoesList = document.getElementById('proposicoes-list');
-            proposicoesData.dados.forEach(prop => {
-                const li = document.createElement('li');
-                li.textContent = `${prop.siglaTipo} ${prop.numero}/${prop.ano} - ${prop.ementa}`;
-                proposicoesList.appendChild(li);
-            });
-
-            // Load emendas
-            const emendasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/emendas?ano=2023`);
-            const emendasData = await emendasRes.json();
-            let emendasHtml = '<p>Emendas:</p><ul>';
-            emendasData.dados.forEach(emenda => {
-                emendasHtml += `<li>${emenda.codigoEmenda} - Valor: R$ ${emenda.valor} - Local: ${emenda.localidadeBeneficiario}</li>`;
-            });
-            emendasHtml += '</ul>';
-            document.getElementById('emendas-content').innerHTML = emendasHtml;
-
-            // Load JSON files
-            const idhRes = await fetchJSON('idh_municipios.json');
-            const idhData = await idhRes.json();
-            const empresasRes = await fetchJSON('empresas.json');
-            const empresasData = await empresasRes.json();
-
-            // Análise IDH vs Investimentos (incluindo componentes: longevidade, educação, renda)
-            let analiseHtml = '<p>Análise exemplificativa considerando componentes do IDH (longevidade, educação, renda):</p>';
-            const municipioExemplo = 'Belém'; // Exemplo
-            const idhMunicipio = idhData[municipioExemplo] || { idh: 0.7, longevidade: 0.8, educacao: 0.6, renda: 0.7 };
-            if (idhMunicipio.longevidade < 0.6) {
-                analiseHtml += '<p class="alert">Longevidade baixa, verifique investimentos em saúde.</p>';
+        // 1. Perfil
+        try {
+            const perfilData = await fetchJSON(apiBase + '/deputados/' + idCamara);
+            if (perfilData && perfilData.dados) {
+                const p = perfilData.dados.ultimoStatus;
+                const foto = perfilData.dados.ultimoStatus.urlFoto;
+                document.getElementById('perfil-content').innerHTML =
+                    '<img src="' + foto + '" alt="' + p.nome + '">' +
+                    '<p><strong>Nome:</strong> ' + p.nome + '</p>' +
+                    '<p><strong>Partido:</strong> ' + p.siglaPartido + '</p>' +
+                    '<p><strong>UF:</strong> ' + p.siglaUf + '</p>' +
+                    '<p><strong>Email:</strong> ' + (p.gabinete ? p.gabinete.email : 'N/A') + '</p>';
             }
-            if (idhMunicipio.educacao < 0.6) {
-                analiseHtml += '<p class="alert">Educação baixa, mas pode ter gastos em outros itens.</p>';
-            }
-            if (idhMunicipio.renda < 0.6) {
-                analiseHtml += '<p class="alert">Renda baixa, análise de emendas para desenvolvimento econômico.</p>';
-            }
-            // Exemplo de checagem com gastos
-            const hasShow = despesasData.dados.some(d => d.tipoDespesa.toLowerCase().includes('show'));
-            if (hasShow && idhMunicipio.idh < 0.6) {
-                analiseHtml += '<p class="alert">IDH geral baixo (saneamento exemplo 0%), mas contratou show!</p>';
-            } else {
-                analiseHtml += '<p>Investimentos parecem alinhados com componentes do IDH.</p>';
-            }
-            document.getElementById('analise-idh-content').innerHTML = analiseHtml;
+        } catch (error) { console.error("Erro perfil:", error); document.getElementById('perfil-content').innerHTML = '<p>Erro ao carregar perfil.</p>'; }
 
-            // Auditoria CNPJ
-            let auditoriaHtml = '<p>Auditoria de CNPJ:</p><ul>';
-            despesasData.dados.forEach(despesa => {
-                const cnpj = despesa.cnpjCpfFornecedor;
-                if (empresasData[cnpj] && empresasData[cnpj].status === 'irregular') {
-                    auditoriaHtml += `<li class="alert">CNPJ ${cnpj} irregular! Fornecedor: ${despesa.nomeFornecedor}</li>`;
+        // 2. Despesas nota-a-nota
+        try {
+            const despesasData = await fetchJSON(apiBase + '/deputados/' + idCamara + '/despesas?itens=100&ordem=DESC&ordenarPor=ano');
+            if (despesasData && despesasData.dados) {
+                despesas = despesasData.dados;
+                const tbody = document.querySelector('#gastos-table tbody');
+                if (tbody) {
+                    tbody.innerHTML = '';
+                    despesas.forEach(function(nota) {
+                        var valor = nota.valorDocumento || 0;
+                        totalGastos += valor;
+                        var data = (nota.dataDocumento || '').replace('T00:00:00', '');
+                        var tr = document.createElement('tr');
+                        tr.innerHTML = '<td>' + data + '</td><td>' + nota.tipoDespesa + '</td><td>R$ ' + valor.toFixed(2) + '</td><td>' + nota.nomeFornecedor + '</td><td>' + nota.cnpjCpfFornecedor + '</td>';
+                        tbody.appendChild(tr);
+                    });
                 }
-            });
-            auditoriaHtml += '</ul>';
-            document.getElementById('auditoria-cnpj-content').innerHTML = auditoriaHtml;
+            }
+        } catch (error) { console.error("Erro despesas:", error); }
 
-            // Ranking Político (exemplo)
-            const totalPresencas = presencasData.dados.filter(d => d.presenca === 'Presença').length;
-            const totalSessões = presencasData.dados.length;
-            const presencaPercent = (totalPresencas / totalSessões) * 100;
-            const totalGastos = despesasData.dados.reduce((sum, d) => sum + d.valorDocumento, 0);
-            const rankingScore = presencaPercent - (totalGastos / 10000); // Fórmula arbitrária
-            document.getElementById('ranking-content').innerHTML = `<p>Score de Ranking: ${rankingScore.toFixed(2)} (Baseado em presença e gastos)</p>`;
-        }
+        // 3. Orgaos e Comissoes
+        try {
+            const orgaosData = await fetchJSON(apiBase + '/deputados/' + idCamara + '/orgaos');
+            if (orgaosData && orgaosData.dados) {
+                var html = '<ul>';
+                orgaosData.dados.forEach(function(o) { html += '<li class="orgao-item"><strong>' + o.siglaOrgao + '</strong> - ' + o.nomeOrgao + ' (' + o.titulo + ')</li>'; });
+                html += '</ul>';
+                document.getElementById('presenca-content').innerHTML = html;
+            }
+        } catch (error) { console.error("Erro orgaos:", error); document.getElementById('presenca-content').innerHTML = '<p>Erro ao carregar dados.</p>'; }
 
-        window.onload = loadData;
-        </script>
+        // 4. Proposicoes
+        try {
+            const propData = await fetchJSON(apiBase + '/proposicoes?idDeputadoAutor=' + idCamara + '&ordem=DESC&ordenarPor=id&itens=20');
+            if (propData && propData.dados) {
+                var html = '<ul>';
+                propData.dados.forEach(function(prop) { html += '<li class="prop-item"><strong>' + prop.siglaTipo + ' ' + prop.numero + '/' + prop.ano + '</strong> - ' + prop.ementa + '</li>'; });
+                html += '</ul>';
+                document.getElementById('proposicoes-content').innerHTML = html;
+            }
+        } catch (error) { console.error("Erro proposicoes:", error); document.getElementById('proposicoes-content').innerHTML = '<p>Erro ao carregar.</p>'; }
+
+        // 5. Emendas
+        try {
+            document.getElementById('emendas-content').innerHTML = '<p>Dados de emendas sendo processados via Portal da Transparencia. <a href="https://portaldatransparencia.gov.br/emendas" target="_blank">Consultar Portal</a></p>';
+        } catch (error) { console.error("Erro emendas:", error); }
+
+        // 6. Analise IDH
+        try {
+            const idhData = await fetchJSON('idh_municipios.json');
+            var el = document.getElementById('analise-idh-content');
+            if (el && idhData && idhData.municipios) {
+                var html = '<table><thead><tr><th>Municipio</th><th>IDH</th><th>Saneamento</th><th>Saude</th><th>Educacao</th><th>Alerta</th></tr></thead><tbody>';
+                idhData.municipios.forEach(function(m) {
+                    var alerta = '';
+                    if (m.saneamento_pct < 30) alerta += 'Saneamento critico! ';
+                    if (m.saude_pct < 40) alerta += 'Saude precaria! ';
+                    html += '<tr><td>' + m.nome + '</td><td>' + m.idh + '</td><td>' + (m.saneamento_pct || 'N/A') + '%</td><td>' + (m.saude_pct || 'N/A') + '%</td><td>' + (m.educacao_pct || 'N/A') + '%</td><td class="alert">' + alerta + '</td></tr>';
+                });
+                html += '</tbody></table>';
+                el.innerHTML = html;
+            }
+        } catch (error) { console.error("Erro IDH:", error); document.getElementById('analise-idh-content').innerHTML = '<p>Erro ao carregar IDH.</p>'; }
+
+        // 7. Auditoria CNPJ
+        try {
+            const empresasData = await fetchJSON('empresas.json');
+            var el = document.getElementById('auditoria-cnpj-content');
+            if (el && empresasData && empresasData.empresas && despesas) {
+                var html = '<ul>';
+                var encontrou = false;
+                despesas.forEach(function(nota) {
+                    if (nota.cnpjCpfFornecedor) {
+                        var cnpj = nota.cnpjCpfFornecedor.replace(/[^0-9]/g, '');
+                        var emp = empresasData.empresas.find(function(e) { return e.cnpj.replace(/[^0-9]/g, '') === cnpj; });
+                        if (emp && emp.status === 'irregular') {
+                            encontrou = true;
+                            html += '<li class="alert">ALERTA: Fornecedor ' + emp.nome + ' (CNPJ: ' + emp.cnpj + ') irregular! Valor: R$ ' + nota.valorDocumento + '</li>';
+                        }
+                    }
+                });
+                html += '</ul>';
+                el.innerHTML = encontrou ? html : '<p>Auditoria finalizada. Nenhuma irregularidade cruzada encontrada.</p>';
+            }
+        } catch (error) { console.error("Erro CNPJ:", error); document.getElementById('auditoria-cnpj-content').innerHTML = '<p>Erro ao carregar.</p>'; }
+
+        // 8. Ranking
+        try {
+            document.getElementById('ranking-content').innerHTML = '<p>Total de gastos registrados: <strong>R$ ' + totalGastos.toFixed(2) + '</strong></p><p><em>(Criterio: Menos gastos = melhor posicao no ranking de economia)</em></p>';
+        } catch (error) { console.error("Erro ranking:", error); }
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = parseInt(urlParams.get('id'));
+
+    if (isNaN(id) || id < 0 || id >= deputados.length) {
+        document.body.innerHTML = '<h1>Deputado nao encontrado</h1>';
+    } else {
+        window.onload = function() { loadData(deputados[id].idCamara); };
+    }
+    </script>
 </body>
 </html>
