@@ -134,18 +134,18 @@
         const deputado = deputados[id];
         const apiBase = 'https://dadosabertos.camara.leg.br/api/v2';
                 const headers = { 'Accept': 'application/json' };
-                async function fetchJSON(url) { return fetch(url, {headers}); }
+                async function fetchJSON(url) { const sep = url.includes('?') ? '&' : '?'; return fetch(url + sep + 'formato=json', {headers}); }
 
         async function loadData() {
                                 const perfilRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}`);
             const perfilData = await perfilRes.json();
             const perfil = perfilData.dados;
             document.getElementById('perfil-content').innerHTML = `
-                <img src="${perfil.urlFoto}" alt="${perfil.nome}">
-                <p><strong>Nome:</strong> ${perfil.nome}</p>
-                <p><strong>Partido:</strong> ${perfil.siglaPartido}</p>
-                <p><strong>UF:</strong> ${perfil.siglaUf}</p>
-                <p><strong>Email:</strong> ${perfil.email}</p>
+                <img src="${perfil.ultimoStatus.urlFoto}" alt="${perfil.ultimoStatus.nome}">
+                <p><strong>Nome:</strong> ${perfil.ultimoStatus.nome}</p>
+                <p><strong>Partido:</strong> ${perfil.ultimoStatus.siglaPartido}</p>
+                <p><strong>UF:</strong> ${perfil.ultimoStatus.siglaUf}</p>
+                <p><strong>Email:</strong> ${perfil.ultimoStatus.gabinete.email}</p>
             `;
 
             // Load gastos CEAP (despesas nota-por-nota)
