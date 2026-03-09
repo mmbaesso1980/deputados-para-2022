@@ -1,182 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FiscalizaPA - Login</title>
-    <style>
-        :root {
-            --primary: #1a472a;
-            --secondary: #2d5a3d;
-            --accent: #15a34a;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex; align-items: center; justify-content: center;
-            min-height: 100vh; padding: 20px;
-        }
-        .login-container {
-            background: white; padding: 40px; border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3); width: 100%; max-width: 450px;
-        }
-        h1 {
-            color: var(--primary); margin-bottom: 10px; font-size: 1.8em;
-        }
-        .tagline {
-            color: #666; margin-bottom: 30px; font-size: 0.9em;
-        }
-        .tabs {
-            display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #eee;
-        }
-        .tab-btn {
-            padding: 10px 20px; border: none; background: none; cursor: pointer;
-            color: #666; font-weight: bold; border-bottom: 3px solid transparent;
-        }
-        .tab-btn.active {
-            color: var(--accent); border-bottom-color: var(--accent);
-        }
-        .form-group { margin-bottom: 20px; }
-        label {
-            display: block; margin-bottom: 8px; color: #333; font-weight: 600;
-        }
-        input {
-            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
-            font-size: 1em; transition: border-color 0.3s;
-        }
-        input:focus {
-            outline: none; border-color: var(--accent);
-        }
-        .btn {
-            width: 100%; padding: 12px; border: none; border-radius: 8px;
-            font-weight: bold; cursor: pointer; font-size: 1em; transition: opacity 0.3s;
-        }
-        .btn-primary {
-            background: var(--primary); color: white;
-        }
-        .btn-primary:hover { opacity: 0.9; }
-        .btn-stripe {
-            background: white; color: #1a1f71; border: 2px solid #1a1f71;
-            margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        .offer-box {
-            background: #f0f9ff; border-left: 4px solid var(--accent);
-            padding: 15px; margin: 20px 0; border-radius: 4px; font-size: 0.9em;
-        }
-        .free-offer {
-            font-weight: bold; color: var(--accent);
-        }
-        .hidden { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FiscalizaPA - Login</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+    .login-container { background: white; border-radius: 16px; padding: 40px; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .logo { font-size: 2em; color: #1a472a; font-weight: bold; margin-bottom: 5px; text-align: center; }
+    .subtitle { color: #666; margin-bottom: 25px; font-size: 0.9em; text-align: center; }
+    .trial-badge { background: #ff9800; color: white; padding: 10px 16px; border-radius: 20px; display: inline-block; font-weight: bold; font-size: 0.85em; margin-bottom: 25px; text-align: center; width: 100%; }
+    .tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 25px; }
+    .tab { flex: 1; padding: 12px; text-align: center; cursor: pointer; font-weight: 600; color: #999; border-bottom: 3px solid transparent; transition: all 0.3s; }
+    .tab.active { color: #1a472a; border-bottom-color: #1a472a; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: #333; font-size: 0.9em; }
+    .form-group input { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; transition: border-color 0.3s; }
+    .form-group input:focus { outline: none; border-color: #1a472a; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-bottom: 12px; }
+    .btn-primary { background: #1a472a; color: white; }
+    .btn-primary:hover { background: #2d5a3d; transform: translateY(-1px); }
+    .btn-google { background: white; color: #333; border: 2px solid #ddd; }
+    .btn-google:hover { background: #f8f8f8; border-color: #4285f4; }
+    .btn-google svg { width: 20px; height: 20px; }
+    .divider { display: flex; align-items: center; margin: 20px 0; color: #999; }
+    .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #ddd; }
+    .divider span { padding: 0 12px; font-size: 0.85em; }
+    .error-msg { background: #fee; color: #c00; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: none; font-size: 0.9em; }
+    .success-msg { background: #efe; color: #060; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: none; font-size: 0.9em; }
+    .pricing { background: #f0f7f0; border-radius: 12px; padding: 20px; margin-top: 20px; text-align: center; }
+    .pricing h3 { color: #1a472a; margin-bottom: 8px; }
+    .pricing .price { font-size: 2em; font-weight: bold; color: #1a472a; }
+    .pricing .price small { font-size: 0.4em; color: #666; }
+    .pricing ul { list-style: none; text-align: left; margin-top: 12px; }
+    .pricing ul li { padding: 5px 0; color: #555; font-size: 0.9em; }
+    .pricing ul li::before { content: '\2713 '; color: #1a472a; font-weight: bold; }
+    .footer-text { text-align: center; margin-top: 15px; font-size: 0.8em; color: #999; }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>🔍 FiscalizaPA</h1>
-        <p class="tagline">Fiscalização Transparente de Deputados Federais</p>
+  <div class="login-container">
+    <div class="logo">FiscalizaPA</div>
+    <div class="subtitle">Fiscalização Transparente de Deputados Federais</div>
+    <div class="trial-badge">7 DIAS GRÁTIS - Experimente sem compromisso!</div>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('login')">ENTRAR</button>
-            <button class="tab-btn" onclick="showTab('register')">SE REGISTRAR</button>
-        </div>
+    <div id="error-msg" class="error-msg"></div>
+    <div id="success-msg" class="success-msg"></div>
 
-        <!-- LOGIN TAB -->
-        <div id="login" class="tab-content">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="loginEmail" placeholder="seu@email.com">
-            </div>
-            <div class="form-group">
-                <label>Senha</label>
-                <input type="password" id="loginPassword" placeholder="Digite sua senha">
-            </div>
-            <button class="btn btn-primary" onclick="loginUser()">ENTRAR</button>
-        </div>
+    <button class="btn btn-google" onclick="loginGoogle()">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Entrar com Google
+    </button>
 
-        <!-- REGISTER TAB -->
-        <div id="register" class="tab-content hidden">
-            <div class="offer-box">
-                <span class="free-offer">🎉 7 DIAS GRÁTIS!</span>
-                <p>Se registre agora e ganhe acesso completo por 7 dias sem custo.</p>
-            </div>
-            <div class="form-group">
-                <label>Nome Completo</label>
-                <input type="text" id="regName" placeholder="Seu nome">
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="regEmail" placeholder="seu@email.com">
-            </div>
-            <div class="form-group">
-                <label>Senha</label>
-                <input type="password" id="regPassword" placeholder="Mínimo 8 caracteres">
-            </div>
-            <button class="btn btn-primary" onclick="registerUser()">SE REGISTRAR - 7 DIAS GRÁTIS</button>
-            <button class="btn btn-stripe id="stripePaymentBtn"" onclick="processStripePayment()">
-                <span>💳</span> Desbloquear Acesso Vitalício (Stripe)
-            </button>
-        </div>
+    <div class="divider"><span>ou</span></div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('login')">ENTRAR</div>
+      <div class="tab" onclick="showTab('register')">REGISTRAR</div>
     </div>
 
-    <script>
-        function showTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tab).classList.remove('hidden');
-            event.target.classList.add('active');
-        }
+    <div id="login-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="login-pass" placeholder="Digite sua senha">
+      </div>
+      <button class="btn btn-primary" onclick="loginEmail()">ENTRAR</button>
+    </div>
 
-        function registerUser() {
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
+    <div id="register-form" style="display:none">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="reg-name" placeholder="Seu nome completo">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="reg-email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres">
+      </div>
+      <button class="btn btn-primary" onclick="registerEmail()">CRIAR CONTA GRÁTIS</button>
+    </div>
 
-            if (!name || !email || !password || password.length < 8) {
-                alert('Preencha todos os campos corretamente');
-                return;
-            }
+    <div class="pricing">
+      <h3>Plano Premium</h3>
+      <div class="price">R$ 39,90<small>/mês</small></div>
+      <ul>
+        <li>Análise de gastos detalhada</li>
+        <li>Auditoria de CNPJ e contratos</li>
+        <li>Relatório de emendas e irregularidades</li>
+        <li>Cruzamento empresas x deputados</li>
+        <li>Alertas de novas denúncias</li>
+      </ul>
+    </div>
 
-            const user = {
-                name, email,
-                freeTrialEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-                status: 'free-trial',
-                registeredAt: new Date().toISOString()
-            };
+    <div class="footer-text">Pagamento via PIX - Cancele quando quiser</div>
+  </div>
 
-            localStorage.setItem('fiscalizapa_user', JSON.stringify(user));
-            localStorage.setItem('fiscalizapa_email', email);
-            alert('✅ Registro realizado! Você tem 7 dias de acesso gratuito.\nRedirecionando...');
-                        // Hide Stripe payment button for non-authorized users
-            const stripeBtn = document.getElementById('stripePaymentBtn');
-            if (stripeBtn && email !== 'mmbaesso@hotmail.com') {
-              stripeBtn.style.display = 'none';
-            }
-            window.location.href = 'index.html';
-        }
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      if (tab === 'login') {
+        document.querySelectorAll('.tab')[0].classList.add('active');
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+      } else {
+        document.querySelectorAll('.tab')[1].classList.add('active');
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'block';
+      }
+    }
 
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            if (!email) {
-                alert('Digite seu email');
-                return;
-            }
-            localStorage.setItem('fiscalizapa_email', email);
-            window.location.href = 'index.html';
-        }
+    function showError(msg) {
+      var el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(function() { el.style.display = 'none'; }, 4000);
+    }
 
-        function processStripePayment() {
-            alert('💎 Redirecionando para Stripe...\n\nPlano: Acesso Vitalício\nPreço: R$ 99,90 (pagamento único)\n\nApós o pagamento, seu acesso será ativado permanentemente!');
-            // Em produção, integrar com Stripe Checkout
-            const user = {
-                name: document.getElementById('regName').value,
-                email: document.getElementById('regEmail').value,
-                status: 'paid',
-                paidAt: new Date().toISOString(),
-                accessLevel: 'lifetime'
-            };
-            localStorage.setItem('fiscalizapa_user', JSON.stringify(user));
-            window.location.href = 'index.html';
-        }
-    </script>
+    function showSuccess(msg) {
+      var el = document.getElementById('success-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function startTrial(email, name) {
+      var now = new Date().toISOString();
+      localStorage.setItem('fiscaliza_user', JSON.stringify({
+        email: email,
+        name: name || email.split('@')[0],
+        loginDate: now,
+        trialStart: now,
+        paid: false
+      }));
+      window.location.href = 'index.html';
+    }
+
+    function loginGoogle() {
+      startTrial('google_user@gmail.com', 'Usuário Google');
+    }
+
+    function loginEmail() {
+      var email = document.getElementById('login-email').value;
+      var pass = document.getElementById('login-pass').value;
+      if (!email || !pass) { showError('Preencha email e senha'); return; }
+      startTrial(email, email.split('@')[0]);
+    }
+
+    function registerEmail() {
+      var name = document.getElementById('reg-name').value;
+      var email = document.getElementById('reg-email').value;
+      var pass = document.getElementById('reg-pass').value;
+      if (!name || !email || !pass) { showError('Preencha todos os campos'); return; }
+      if (pass.length < 6) { showError('Senha deve ter no mínimo 6 caracteres'); return; }
+      startTrial(email, name);
+    }
+
+    // Check if already logged in
+    var user = JSON.parse(localStorage.getItem('fiscaliza_user') || 'null');
+    if (user) {
+      var trialStart = new Date(user.trialStart);
+      var now = new Date();
+      var daysDiff = Math.floor((now - trialStart) / (1000 * 60 * 60 * 24));
+      if (daysDiff <= 7 || user.paid) {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
 </body>
 </html>
