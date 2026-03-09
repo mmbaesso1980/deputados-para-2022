@@ -233,7 +233,7 @@
             auditoriaHtml += '</ul>';
             document.getElementById('auditoria-cnpj-content').innerHTML = auditoriaHtml;
 
-            // Ranking Político (exemplo)
+            } catch(e) { console.log(e); } try { // Ranking Político (exemplo)
             const totalPresencas = presencasData.dados.filter(d => d.presenca === 'Presença').length;
             const totalSessões = presencasData.dados.length;
             const presencaPercent = (totalPresencas / totalSessões) * 100;
