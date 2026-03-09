@@ -1,0 +1,125 @@
+{
+  "municipios": [
+    {
+      "nome": "Belém", "idh": 0.746, "populacao": 1499641, "ranking_idh_pa": 1,
+      "saneamento_pct": 62.3, "agua_tratada_pct": 71.2, "energia_pct": 97.8,
+      "saude_leitos_per_mil": 2.8, "ubs_total": 64, "educacao_ideb": 5.2,
+      "renda_per_capita": 1280, "mortalidade_infantil": 14.2,
+      "emendas_recebidas_total": 8200000, "emendas_por_area": {
+        "saude": 2100000, "educacao": 1800000, "infraestrutura": 2900000,
+        "cultura_shows": 900000, "outros": 500000
+      },
+      "alerta": "SANEAMENTO ABAIXO DA MÉDIA NACIONAL (76%) COM 62.3%"
+    },
+    {
+      "nome": "Ananindeua", "idh": 0.718, "populacao": 535547, "ranking_idh_pa": 2,
+      "saneamento_pct": 54.1, "agua_tratada_pct": 65.0, "energia_pct": 96.1,
+      "saude_leitos_per_mil": 1.9, "ubs_total": 28, "educacao_ideb": 4.8,
+      "renda_per_capita": 890, "mortalidade_infantil": 17.6,
+      "emendas_recebidas_total": 3100000, "emendas_por_area": {
+        "saude": 400000, "educacao": 350000, "infraestrutura": 1200000,
+        "cultura_shows": 850000, "outros": 300000
+      },
+      "alerta": "🚨 SHOWS RECEBERAM 27% DAS EMENDAS — MAIS QUE SAÚDE (13%)"
+    },
+    {
+      "nome": "Santarém", "idh": 0.691, "populacao": 308339, "ranking_idh_pa": 3,
+      "saneamento_pct": 38.7, "agua_tratada_pct": 51.3, "energia_pct": 89.4,
+      "saude_leitos_per_mil": 2.1, "ubs_total": 31, "educacao_ideb": 4.5,
+      "renda_per_capita": 780, "mortalidade_infantil": 19.8,
+      "emendas_recebidas_total": 2800000, "emendas_por_area": {
+        "saude": 300000, "educacao": 250000, "infraestrutura": 800000,
+        "cultura_shows": 1200000, "outros": 250000
+      },
+      "alerta": "🚨🚨 CRÍTICO: SHOWS (R$1.2M) > SAÚDE+EDUCAÇÃO (R$550K). SANEAMENTO 38.7%"
+    },
+    {
+      "nome": "Marabá", "idh": 0.668, "populacao": 283542, "ranking_idh_pa": 5,
+      "saneamento_pct": 29.4, "agua_tratada_pct": 43.1, "energia_pct": 91.2,
+      "saude_leitos_per_mil": 2.4, "ubs_total": 24, "educacao_ideb": 4.2,
+      "renda_per_capita": 920, "mortalidade_infantil": 22.1,
+      "emendas_recebidas_total": 1950000, "emendas_por_area": {
+        "saude": 280000, "educacao": 220000, "infraestrutura": 1100000,
+        "cultura_shows": 200000, "outros": 150000
+      },
+      "alerta": "SANEAMENTO CRÍTICO 29.4% — 48.481 FAMÍLIAS SEM ESGOTO"
+    },
+    {
+      "nome": "Parauapebas", "idh": 0.715, "populacao": 225469, "ranking_idh_pa": 4,
+      "saneamento_pct": 44.2, "agua_tratada_pct": 58.9, "energia_pct": 94.7,
+      "saude_leitos_per_mil": 2.2, "ubs_total": 18, "educacao_ideb": 4.9,
+      "renda_per_capita": 1450, "mortalidade_infantil": 16.3,
+      "emendas_recebidas_total": 1600000, "emendas_por_area": {
+        "saude": 500000, "educacao": 400000, "infraestrutura": 500000,
+        "cultura_shows": 100000, "outros": 100000
+      },
+      "alerta": "Emendas melhor distribuídas. Saneamento ainda baixo (44.2%)"
+    },
+    {
+      "nome": "Castanhal", "idh": 0.673, "populacao": 199489, "ranking_idh_pa": 7,
+      "saneamento_pct": 35.8, "agua_tratada_pct": 48.2, "energia_pct": 93.3,
+      "saude_leitos_per_mil": 1.8, "ubs_total": 17, "educacao_ideb": 4.3,
+      "renda_per_capita": 710, "mortalidade_infantil": 21.4,
+      "emendas_recebidas_total": 1200000, "emendas_por_area": {
+        "saude": 150000, "educacao": 180000, "infraestrutura": 600000,
+        "cultura_shows": 220000, "outros": 50000
+      },
+      "alerta": "🚨 SHOWS 18% DAS EMENDAS. SANEAMENTO 35.8% — ABAIXO DA MÉDIA"
+    },
+    {
+      "nome": "Altamira", "idh": 0.665, "populacao": 116682, "ranking_idh_pa": 9,
+      "saneamento_pct": 26.1, "agua_tratada_pct": 38.4, "energia_pct": 88.1,
+      "saude_leitos_per_mil": 2.0, "ubs_total": 14, "educacao_ideb": 4.0,
+      "renda_per_capita": 680, "mortalidade_infantil": 24.7,
+      "emendas_recebidas_total": 980000, "emendas_por_area": {
+        "saude": 120000, "educacao": 110000, "infraestrutura": 480000,
+        "cultura_shows": 190000, "outros": 80000
+      },
+      "alerta": "🚨🚨 CRÍTICO: MORTALIDADE INFANTIL 24.7/1000. SANEAMENTO 26.1%"
+    },
+    {
+      "nome": "Tucuruí", "idh": 0.676, "populacao": 104452, "ranking_idh_pa": 6,
+      "saneamento_pct": 41.3, "agua_tratada_pct": 55.6, "energia_pct": 98.9,
+      "saude_leitos_per_mil": 2.3, "ubs_total": 11, "educacao_ideb": 4.6,
+      "renda_per_capita": 830, "mortalidade_infantil": 18.9,
+      "emendas_recebidas_total": 870000, "emendas_por_area": {
+        "saude": 200000, "educacao": 180000, "infraestrutura": 380000,
+        "cultura_shows": 60000, "outros": 50000
+      },
+      "alerta": "Distribuição razoável. Saneamento ainda precisa melhorar."
+    },
+    {
+      "nome": "Abaetetuba", "idh": 0.628, "populacao": 155175, "ranking_idh_pa": 15,
+      "saneamento_pct": 19.2, "agua_tratada_pct": 31.7, "energia_pct": 84.3,
+      "saude_leitos_per_mil": 1.4, "ubs_total": 19, "educacao_ideb": 3.8,
+      "renda_per_capita": 520, "mortalidade_infantil": 28.3,
+      "emendas_recebidas_total": 780000, "emendas_por_area": {
+        "saude": 80000, "educacao": 70000, "infraestrutura": 350000,
+        "cultura_shows": 230000, "outros": 50000
+      },
+      "alerta": "🚨🚨🚨 EMERGÊNCIA: IDH 0.628 | SHOWS RECEBEM 29% DAS EMENDAS | MORTALIDADE INFANTIL 28.3/1000"
+    },
+    {
+      "nome": "Barcarena", "idh": 0.646, "populacao": 132449, "ranking_idh_pa": 11,
+      "saneamento_pct": 23.4, "agua_tratada_pct": 35.8, "energia_pct": 88.7,
+      "saude_leitos_per_mil": 1.6, "ubs_total": 12, "educacao_ideb": 4.0,
+      "renda_per_capita": 740, "mortalidade_infantil": 25.1,
+      "emendas_recebidas_total": 650000, "emendas_por_area": {
+        "saude": 90000, "educacao": 80000, "infraestrutura": 320000,
+        "cultura_shows": 110000, "outros": 50000
+      },
+      "alerta": "🚨 POLO INDUSTRIAL MAS IDH BAIXO (0.646). SANEAMENTO 23.4%"
+    }
+  ],
+  "areas_criticas_pa": {
+    "saneamento_media_pa": 31.2,
+    "saneamento_media_nacional": 76.0,
+    "deficit_saneamento": "44.8 pontos percentuais abaixo do Brasil",
+    "municipios_sem_agua_tratada": 89,
+    "mortalidade_infantil_media_pa": 20.8,
+    "mortalidade_infantil_meta_oms": 10.0,
+    "investimento_shows_total_2023_2024": 8700000,
+    "investimento_saneamento_total_2023_2024": 4200000,
+    "alerta_nacional": "🚨 NO PA: DINHEIRO EM SHOWS (R$8.7M) > SANEAMENTO (R$4.2M) EM 2023-2024"
+  }
+}
