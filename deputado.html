@@ -133,10 +133,11 @@
         }
         const deputado = deputados[id];
         const apiBase = 'https://dadosabertos.camara.leg.br/api/v2';
+                const headers = { 'Accept': 'application/json' };
+                async function fetchJSON(url) { return fetch(url, {headers}); }
 
         async function loadData() {
-            // Load perfil
-            const perfilRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}`);
+                                const perfilRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}`);
             const perfilData = await perfilRes.json();
             const perfil = perfilData.dados;
             document.getElementById('perfil-content').innerHTML = `
@@ -148,7 +149,7 @@
             `;
 
             // Load gastos CEAP (despesas nota-por-nota)
-            const despesasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/despesas?itens=100&ordem=ASC&ordenarPor=ano`);
+            const despesasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/despesas?itens=100&ordem=ASC&ordenarPor=ano`);
             const despesasData = await despesasRes.json();
             const tbody = document.querySelector('#gastos-table tbody');
             despesasData.dados.forEach(despesa => {
@@ -164,7 +165,7 @@
             });
 
             // Load presença em sessões
-            const presencasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/presencasDias?dataInicio=2023-01-01&dataFim=2026-03-09`);
+            const presencasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/presencasDias?dataInicio=2023-01-01&dataFim=2026-03-09`);
             const presencasData = await presencasRes.json();
             let presencaHtml = '<p>Presenças em sessões:</p><ul>';
             presencasData.dados.forEach(dia => {
@@ -174,7 +175,7 @@
             document.getElementById('presenca-content').innerHTML = presencaHtml;
 
             // Load proposições
-            const proposicoesRes = await fetch(`${apiBase}/proposicoes?autorId=${deputado.idCamara}&itens=10`);
+            const proposicoesRes = await fetchJSON(`${apiBase}/proposicoes?autorId=${deputado.idCamara}&itens=10`);
             const proposicoesData = await proposicoesRes.json();
             const proposicoesList = document.getElementById('proposicoes-list');
             proposicoesData.dados.forEach(prop => {
@@ -184,7 +185,7 @@
             });
 
             // Load emendas
-            const emendasRes = await fetch(`${apiBase}/deputados/${deputado.idCamara}/emendas?ano=2023`);
+            const emendasRes = await fetchJSON(`${apiBase}/deputados/${deputado.idCamara}/emendas?ano=2023`);
             const emendasData = await emendasRes.json();
             let emendasHtml = '<p>Emendas:</p><ul>';
             emendasData.dados.forEach(emenda => {
@@ -194,9 +195,9 @@
             document.getElementById('emendas-content').innerHTML = emendasHtml;
 
             // Load JSON files
-            const idhRes = await fetch('idh_municipios.json');
+            const idhRes = await fetchJSON('idh_municipios.json');
             const idhData = await idhRes.json();
-            const empresasRes = await fetch('empresas.json');
+            const empresasRes = await fetchJSON('empresas.json');
             const empresasData = await empresasRes.json();
 
             // Análise IDH vs Investimentos (incluindo componentes: longevidade, educação, renda)
