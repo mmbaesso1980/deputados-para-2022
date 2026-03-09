@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FiscalizaPA - Minha Conta</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 700px; margin: 0 auto; }
+.topbar { background: #0d2818; color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.topbar a { color: #8fc; text-decoration: none; margin-left: 15px; }
+.card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+.card h2 { color: #1a472a; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e8f5e9; }
+.avatar { width: 80px; height: 80px; border-radius: 50%; background: #1a472a; color: white; display: flex; align-items: center; justify-content: center; font-size: 2em; font-weight: bold; margin: 0 auto 15px; }
+.info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: #666; font-size: 0.9em; }
+.info-value { font-weight: 600; color: #333; }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
+.badge-trial { background: #fff3e0; color: #e65100; }
+.badge-premium { background: #e8f5e9; color: #2e7d32; }
+.badge-expired { background: #ffebee; color: #c62828; }
+.progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; margin: 10px 0; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #ff9800, #f57c00); transition: width 0.5s; }
+.btn { display: inline-block; padding: 12px 24px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s; }
+.btn-premium { background: linear-gradient(135deg, #1a472a, #2d5a3d); color: white; width: 100%; display: block; margin-top: 15px; }
+.btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,71,42,0.4); }
+.btn-danger { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+.btn-danger:hover { background: #ffcdd2; }
+.btn-secondary { background: #f5f5f5; color: #333; border: 1px solid #ddd; }
+.pix-box { background: #f5f5f5; border-radius: 12px; padding: 20px; margin-top: 15px; text-align: center; }
+.pix-box .valor { font-size: 2em; font-weight: 800; color: #1a472a; margin: 10px 0; }
+.pix-key { background: white; padding: 12px; border-radius: 8px; border: 2px dashed #1a472a; margin: 10px 0; font-family: monospace; font-size: 1.1em; color: #1a472a; cursor: pointer; }
+.pix-key:hover { background: #e8f5e9; }
+.features-list { list-style: none; margin: 15px 0; }
+.features-list li { padding: 8px 0; color: #555; border-bottom: 1px solid #f0f0f0; }
+.features-list li::before { content: '\2713 '; color: #2e7d32; font-weight: bold; margin-right: 8px; }
+</style>
+<script>var u=JSON.parse(localStorage.getItem('fiscaliza_user')||'null');if(!u){window.location.href='login.html';}</script>
+</head>
+<body>
+<div class="container">
+<div class="topbar">
+<span><strong>FiscalizaPA</strong></span>
+<span><a href="index.html">Deputados</a><a href="#" onclick="localStorage.removeItem('fiscaliza_user');window.location.href='login.html'">Sair</a></span>
+</div>
+<div class="card" id="profile-card"></div>
+<div class="card" id="plan-card"></div>
+<div class="card" id="payment-card"></div>
+<div class="card" style="text-align:center">
+<h2>Ações</h2>
+<a href="index.html" class="btn btn-secondary" style="margin:5px">Voltar aos Deputados</a>
+<button class="btn btn-danger" style="margin:5px" onclick="if(confirm('Deseja realmente sair?')){localStorage.removeItem('fiscaliza_user');window.location.href='login.html';}">Encerrar Sessão</button>
+</div>
+</div>
+<script>
+var user = JSON.parse(localStorage.getItem('fiscaliza_user')||'null');
+if(!user) window.location.href='login.html';
+var days = Math.floor((new Date()-new Date(user.trialStart))/(864e5));
+var remaining = Math.max(0, 7 - days);
+var status = user.paid ? 'premium' : days <= 7 ? 'trial' : 'expired';
+var initial = (user.name||user.email||'U').charAt(0).toUpperCase();
+
+// Profile
+document.getElementById('profile-card').innerHTML = '<div class="avatar">' + initial + '</div>' +
+'<h2 style="text-align:center">Minha Conta</h2>' +
+'<div class="info-row"><span class="info-label">Nome</span><span class="info-value">' + (user.name||'N/A') + '</span></div>' +
+'<div class="info-row"><span class="info-label">Email</span><span class="info-value">' + (user.email||'N/A') + '</span></div>' +
+'<div class="info-row"><span class="info-label">Login via</span><span class="info-value">' + (user.provider||'email') + '</span></div>' +
+'<div class="info-row"><span class="info-label">Membro desde</span><span class="info-value">' + new Date(user.trialStart).toLocaleDateString('pt-BR') + '</span></div>';
+
+// Plan
+var planHtml = '<h2>Seu Plano</h2>';
+if(status==='premium'){
+planHtml += '<div style="text-align:center"><span class="badge badge-premium">PREMIUM ATIVO</span></div>';
+planHtml += '<ul class="features-list"><li>An\u00e1lise completa de gastos</li><li>Auditoria de CNPJ ilimitada</li><li>Relat\u00f3rios de emendas</li><li>Cruzamento empresas x deputados</li><li>Alertas de den\u00fancias</li><li>Exporta\u00e7\u00e3o PDF</li></ul>';
+} else if(status==='trial'){
+planHtml += '<div style="text-align:center"><span class="badge badge-trial">TRIAL - ' + remaining + ' dias restantes</span></div>';
+planHtml += '<div class="progress-bar"><div class="progress-fill" style="width:' + ((7-remaining)/7*100) + '%"></div></div>';
+planHtml += '<p style="color:#666;font-size:0.9em;margin-top:8px">Aproveite todos os recursos gratuitamente por 7 dias. Ap\u00f3s o trial, assine o plano Premium para continuar.</p>';
+planHtml += '<button class="btn btn-premium" onclick="document.getElementById(\'payment-card\').scrollIntoView({behavior:\'smooth\'})">Assinar Premium - R$ 39,90/m\u00eas</button>';
+} else {
+planHtml += '<div style="text-align:center"><span class="badge badge-expired">TRIAL EXPIRADO</span></div>';
+planHtml += '<p style="color:#c62828;text-align:center;margin:15px 0;font-weight:bold">Seu per\u00edodo de teste expirou. Assine para continuar usando.</p>';
+planHtml += '<button class="btn btn-premium" onclick="document.getElementById(\'payment-card\').scrollIntoView({behavior:\'smooth\'})">Assinar Agora - R$ 39,90/m\u00eas</button>';
+}
+document.getElementById('plan-card').innerHTML = planHtml;
+
+// Payment
+var payHtml = '<h2>Pagamento via PIX</h2>';
+payHtml += '<div class="pix-box">';
+payHtml += '<p><strong>Plano Premium Mensal</strong></p>';
+payHtml += '<div class="valor">R$ 39,90</div>';
+payHtml += '<p style="color:#666;font-size:0.9em">Copie a chave PIX abaixo e realize o pagamento:</p>';
+payHtml += '<div class="pix-key" onclick="navigator.clipboard.writeText(\'fiscalizapa@email.com\');this.innerHTML=\'Copiado!\';setTimeout(()=>{this.innerHTML=\'fiscalizapa@email.com\'},2000)">fiscalizapa@email.com</div>';
+payHtml += '<p style="font-size:0.85em;color:#999;margin-top:8px">Ap\u00f3s o pagamento, envie o comprovante para <strong>contato@transparenciabr.com.br</strong></p>';
+payHtml += '</div>';
+if(!user.paid){
+payHtml += '<button class="btn btn-premium" style="margin-top:15px" onclick="var u=JSON.parse(localStorage.getItem(\'fiscaliza_user\'));u.paid=true;localStorage.setItem(\'fiscaliza_user\',JSON.stringify(u));alert(\'Premium ativado! Obrigado.\');location.reload();">J\u00e1 paguei - Ativar Premium</button>';
+payHtml += '<p style="font-size:0.8em;color:#999;text-align:center;margin-top:8px">Ativa\u00e7\u00e3o instant\u00e2nea ap\u00f3s confirma\u00e7\u00e3o do pagamento</p>';
+}
+document.getElementById('payment-card').innerHTML = payHtml;
+</script>
+</body>
+</html>
