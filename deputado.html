@@ -73,7 +73,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>FiscalizaPA - Fiscaliza\u00e7\u00e3o de Deputados Federais do Par\u00e1</h1>
+            <h1>FiscalizaPA - Fiscalização de Deputados Federais do Pará</h1>
         </header>
 
         <div class="section">
@@ -248,7 +248,7 @@
         try {
             const eventos = await fetchAllPages(API + '/deputados/' + idCamara + '/eventos?dataInicio=2025-01-01&ordem=DESC&ordenarPor=dataHoraInicio', 3);
             const totalEventos = eventos.length;
-            const presentes = eventos.filter(e => e.descricaoTipo && e.descricaoTipo.toLowerCase().indexOf('sessao') >= 0).length;
+            const presentes = eventos.filter(e => e.descricaoTipo && e.descricaoTipo.toLowerCase().indexOf('sess') >= 0).length;
             const pctPresenca = totalEventos > 0 ? ((presentes / Math.max(totalEventos, 1)) * 100).toFixed(1) : 'N/A';
             const gaugeColor = pctPresenca >= 75 ? '#2e7d32' : pctPresenca >= 50 ? '#ff9800' : '#d32f2f';
             let presHtml = '<div class="stat-row">' +
