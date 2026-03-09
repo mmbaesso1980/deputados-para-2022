@@ -129,7 +129,7 @@
         const id = parseInt(urlParams.get('id')) - 1; // 1-based to 0-based index
         if (id < 0 || id >= deputados.length) {
             document.body.innerHTML = '<h1>Deputado não encontrado</h1>';
-            return;
+            throw new Error('not found');
         }
         const deputado = deputados[id];
         const apiBase = 'https://dadosabertos.camara.leg.br/api/v2';
