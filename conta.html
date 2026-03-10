@@ -8,99 +8,99 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%); min-height: 100vh; padding: 20px; }
 .container { max-width: 700px; margin: 0 auto; }
-.topbar { background: #0d2818; color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+.topbar { background: #0d2818; color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
 .topbar a { color: #8fc; text-decoration: none; margin-left: 15px; }
-.card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-.card h2 { color: #1a472a; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e8f5e9; }
-.avatar { width: 80px; height: 80px; border-radius: 50%; background: #1a472a; color: white; display: flex; align-items: center; justify-content: center; font-size: 2em; font-weight: bold; margin: 0 auto 15px; }
-.info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
-.info-row:last-child { border-bottom: none; }
-.info-label { color: #666; font-size: 0.9em; }
-.info-value { font-weight: 600; color: #333; }
-.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
-.badge-trial { background: #fff3e0; color: #e65100; }
-.badge-premium { background: #e8f5e9; color: #2e7d32; }
-.badge-expired { background: #ffebee; color: #c62828; }
-.progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; margin: 10px 0; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #ff9800, #f57c00); transition: width 0.5s; }
-.btn { display: inline-block; padding: 12px 24px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.3s; }
-.btn-premium { background: linear-gradient(135deg, #1a472a, #2d5a3d); color: white; width: 100%; display: block; margin-top: 15px; }
-.btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,71,42,0.4); }
-.btn-danger { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
-.btn-danger:hover { background: #ffcdd2; }
-.btn-secondary { background: #f5f5f5; color: #333; border: 1px solid #ddd; }
-.pix-box { background: #f5f5f5; border-radius: 12px; padding: 20px; margin-top: 15px; text-align: center; }
-.pix-box .valor { font-size: 2em; font-weight: 800; color: #1a472a; margin: 10px 0; }
-.pix-key { background: white; padding: 12px; border-radius: 8px; border: 2px dashed #1a472a; margin: 10px 0; font-family: monospace; font-size: 1.1em; color: #1a472a; cursor: pointer; }
-.pix-key:hover { background: #e8f5e9; }
-.features-list { list-style: none; margin: 15px 0; }
-.features-list li { padding: 8px 0; color: #555; border-bottom: 1px solid #f0f0f0; }
-.features-list li::before { content: '\2713 '; color: #2e7d32; font-weight: bold; margin-right: 8px; }
+.card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.card h2 { color: #1a472a; margin-bottom: 15px; border-bottom: 2px solid #1a472a; padding-bottom: 10px; }
+.info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+.info-label { color: #666; font-weight: 500; }
+.info-value { font-weight: bold; color: #1a472a; }
+.badge-trial { background: #ff9800; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+.badge-premium { background: #2e7d32; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+.badge-expired { background: #d32f2f; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; }
+.pricing-card { background: linear-gradient(135deg, #f0f7f0, #e8f5e9); border: 2px solid #2e7d32; }
+.pricing-card h2 { color: #2e7d32; border-bottom-color: #2e7d32; }
+.price-big { font-size: 3em; font-weight: 800; color: #1a472a; text-align: center; margin: 15px 0; }
+.price-big small { font-size: 0.3em; color: #666; font-weight: 400; }
+.features { list-style: none; margin: 20px 0; }
+.features li { padding: 8px 0; color: #555; font-size: 0.95em; }
+.features li::before { content: '\2713 '; color: #2e7d32; font-weight: bold; margin-right: 8px; }
+.btn-stripe { display: block; width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 1.1em; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, #635bff, #7c3aed); color: white; text-align: center; text-decoration: none; transition: all 0.3s; margin-top: 15px; }
+.btn-stripe:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,91,255,0.4); }
+.btn-logout { display: block; width: 100%; padding: 14px; border: 2px solid #d32f2f; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; background: white; color: #d32f2f; transition: all 0.3s; margin-top: 15px; }
+.btn-logout:hover { background: #d32f2f; color: white; }
+.pix-info { background: #fff3e0; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #ffcc02; }
+.pix-info h4 { color: #e65100; margin-bottom: 8px; }
+.pix-key { background: #fff; padding: 10px; border: 2px dashed #ff9800; border-radius: 6px; text-align: center; font-size: 1.1em; font-weight: bold; color: #1a472a; margin: 8px 0; cursor: pointer; }
+.success-banner { background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 8px; padding: 15px; text-align: center; color: #2e7d32; font-weight: bold; margin-bottom: 15px; }
 </style>
 <script>var u=JSON.parse(localStorage.getItem('fiscaliza_user')||'null');if(!u){window.location.href='login.html';}</script>
 </head>
 <body>
 <div class="container">
-<div class="topbar">
-<span><strong>FiscalizaPA</strong></span>
-<span><a href="index.html">Deputados</a><a href="#" onclick="localStorage.removeItem('fiscaliza_user');window.location.href='login.html'">Sair</a></span>
+<div class="topbar"><span>FiscalizaPA - Minha Conta</span><span><a href="index.html">Painel</a><a href="#" id="logout-btn">Sair</a></span></div>
+<div id="success-banner" class="success-banner" style="display:none"></div>
+<div class="card"><h2>Perfil do Usuário</h2><div id="profile-info"></div></div>
+<div class="card" id="subscription-card"><h2>Status da Assinatura</h2><div id="sub-info"></div></div>
+<div class="card pricing-card" id="payment-card">
+<h2>Assinar Plano Premium</h2>
+<div class="price-big">R$ 39,90<small>/mês</small></div>
+<ul class="features">
+<li>Análise detalhada de gastos parlamentares</li>
+<li>Auditoria de CNPJ e contratos</li>
+<li>Relatórios de emendas e irregularidades</li>
+<li>Cruzamento empresas x deputados</li>
+<li>Alertas de novas denúncias em tempo real</li>
+<li>Exportação de dados em PDF</li>
+<li>Suporte prioritário</li>
+</ul>
+<a class="btn-stripe" id="stripe-btn" href="#" target="_blank">Assinar com Cartão via Stripe</a>
+<div class="pix-info">
+<h4>Pagamento via PIX (R$ 39,90/mês)</h4>
+<p>Envie o valor e o comprovante para:</p>
+<div class="pix-key" onclick="copyPix()">fiscalizapa@gmail.com</div>
+<p style="font-size:0.85em;color:#666;margin-top:8px">Após pagamento via PIX, envie o comprovante para ativarmos em até 1h.</p>
 </div>
-<div class="card" id="profile-card"></div>
-<div class="card" id="plan-card"></div>
-<div class="card" id="payment-card"></div>
-<div class="card" style="text-align:center">
-<h2>Ações</h2>
-<a href="index.html" class="btn btn-secondary" style="margin:5px">Voltar aos Deputados</a>
-<button class="btn btn-danger" style="margin:5px" onclick="if(confirm('Deseja realmente sair?')){localStorage.removeItem('fiscaliza_user');window.location.href='login.html';}">Encerrar Sessão</button>
 </div>
+<div class="card"><h2>Ações</h2><button class="btn-logout" onclick="doLogout()">Sair da Conta</button></div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script>
-var user = JSON.parse(localStorage.getItem('fiscaliza_user')||'null');
-if(!user) window.location.href='login.html';
-var days = Math.floor((new Date()-new Date(user.trialStart))/(864e5));
-var remaining = Math.max(0, 7 - days);
-var status = user.paid ? 'premium' : days <= 7 ? 'trial' : 'expired';
-var initial = (user.name||user.email||'U').charAt(0).toUpperCase();
-
-// Profile
-document.getElementById('profile-card').innerHTML = '<div class="avatar">' + initial + '</div>' +
-'<h2 style="text-align:center">Minha Conta</h2>' +
-'<div class="info-row"><span class="info-label">Nome</span><span class="info-value">' + (user.name||'N/A') + '</span></div>' +
-'<div class="info-row"><span class="info-label">Email</span><span class="info-value">' + (user.email||'N/A') + '</span></div>' +
-'<div class="info-row"><span class="info-label">Login via</span><span class="info-value">' + (user.provider||'email') + '</span></div>' +
-'<div class="info-row"><span class="info-label">Membro desde</span><span class="info-value">' + new Date(user.trialStart).toLocaleDateString('pt-BR') + '</span></div>';
-
-// Plan
-var planHtml = '<h2>Seu Plano</h2>';
-if(status==='premium'){
-planHtml += '<div style="text-align:center"><span class="badge badge-premium">PREMIUM ATIVO</span></div>';
-planHtml += '<ul class="features-list"><li>An\u00e1lise completa de gastos</li><li>Auditoria de CNPJ ilimitada</li><li>Relat\u00f3rios de emendas</li><li>Cruzamento empresas x deputados</li><li>Alertas de den\u00fancias</li><li>Exporta\u00e7\u00e3o PDF</li></ul>';
-} else if(status==='trial'){
-planHtml += '<div style="text-align:center"><span class="badge badge-trial">TRIAL - ' + remaining + ' dias restantes</span></div>';
-planHtml += '<div class="progress-bar"><div class="progress-fill" style="width:' + ((7-remaining)/7*100) + '%"></div></div>';
-planHtml += '<p style="color:#666;font-size:0.9em;margin-top:8px">Aproveite todos os recursos gratuitamente por 7 dias. Ap\u00f3s o trial, assine o plano Premium para continuar.</p>';
-planHtml += '<button class="btn btn-premium" onclick="document.getElementById(\'payment-card\').scrollIntoView({behavior:\'smooth\'})">Assinar Premium - R$ 39,90/m\u00eas</button>';
-} else {
-planHtml += '<div style="text-align:center"><span class="badge badge-expired">TRIAL EXPIRADO</span></div>';
-planHtml += '<p style="color:#c62828;text-align:center;margin:15px 0;font-weight:bold">Seu per\u00edodo de teste expirou. Assine para continuar usando.</p>';
-planHtml += '<button class="btn btn-premium" onclick="document.getElementById(\'payment-card\').scrollIntoView({behavior:\'smooth\'})">Assinar Agora - R$ 39,90/m\u00eas</button>';
+firebase.initializeApp({apiKey:"AIzaSyDuII-aOUbsrVv3H-Qb_0XSe1XLV97Da24",authDomain:"fiscallizapa.firebaseapp.com",projectId:"fiscallizapa",storageBucket:"fiscallizapa.firebasestorage.app",messagingSenderId:"993207283220",appId:"1:993207283220:web:b58b551b41104a3ada0101"});
+var auth = firebase.auth();
+var usr = JSON.parse(localStorage.getItem('fiscaliza_user') || 'null');
+if (usr) {
+  var dias = Math.floor((new Date() - new Date(usr.trialStart)) / 864e5);
+  var restam = Math.max(0, 7 - dias);
+  var prov = usr.provider === 'google.com' ? 'Google' : usr.provider === 'email' ? 'Email' : usr.provider;
+  document.getElementById('profile-info').innerHTML =
+    '<div class="info-row"><span class="info-label">Nome</span><span class="info-value">' + (usr.name||'N/A') + '</span></div>' +
+    '<div class="info-row"><span class="info-label">Email</span><span class="info-value">' + (usr.email||'N/A') + '</span></div>' +
+    '<div class="info-row"><span class="info-label">Login via</span><span class="info-value">' + prov + '</span></div>' +
+    '<div class="info-row"><span class="info-label">Membro desde</span><span class="info-value">' + new Date(usr.trialStart).toLocaleDateString('pt-BR') + '</span></div>';
+  var sh = '';
+  if (usr.paid) {
+    sh = '<div class="info-row"><span class="info-label">Plano</span><span class="badge-premium">PREMIUM</span></div><div class="info-row"><span class="info-label">Status</span><span class="info-value" style="color:#2e7d32">Ativo</span></div>';
+    document.getElementById('payment-card').style.display = 'none';
+  } else if (restam > 0) {
+    sh = '<div class="info-row"><span class="info-label">Plano</span><span class="badge-trial">TRIAL</span></div><div class="info-row"><span class="info-label">Dias restantes</span><span class="info-value">' + restam + ' de 7</span></div><div style="margin-top:10px;padding:10px;background:#fff3e0;border-radius:6px;color:#e65100">Trial expira em ' + restam + ' dia(s). Assine para continuar.</div>';
+  } else {
+    sh = '<div class="info-row"><span class="info-label">Plano</span><span class="badge-expired">EXPIRADO</span></div><div style="margin-top:10px;padding:10px;background:#ffebee;border-radius:6px;color:#d32f2f">Trial expirado. Assine o plano Premium.</div>';
+  }
+  document.getElementById('sub-info').innerHTML = sh;
 }
-document.getElementById('plan-card').innerHTML = planHtml;
-
-// Payment
-var payHtml = '<h2>Pagamento via PIX</h2>';
-payHtml += '<div class="pix-box">';
-payHtml += '<p><strong>Plano Premium Mensal</strong></p>';
-payHtml += '<div class="valor">R$ 39,90</div>';
-payHtml += '<p style="color:#666;font-size:0.9em">Copie a chave PIX abaixo e realize o pagamento:</p>';
-payHtml += '<div class="pix-key" onclick="navigator.clipboard.writeText(\'fiscalizapa@email.com\');this.innerHTML=\'Copiado!\';setTimeout(()=>{this.innerHTML=\'fiscalizapa@email.com\'},2000)">fiscalizapa@email.com</div>';
-payHtml += '<p style="font-size:0.85em;color:#999;margin-top:8px">Ap\u00f3s o pagamento, envie o comprovante para <strong>contato@transparenciabr.com.br</strong></p>';
-payHtml += '</div>';
-if(!user.paid){
-payHtml += '<button class="btn btn-premium" style="margin-top:15px" onclick="var u=JSON.parse(localStorage.getItem(\'fiscaliza_user\'));u.paid=true;localStorage.setItem(\'fiscaliza_user\',JSON.stringify(u));alert(\'Premium ativado! Obrigado.\');location.reload();">J\u00e1 paguei - Ativar Premium</button>';
-payHtml += '<p style="font-size:0.8em;color:#999;text-align:center;margin-top:8px">Ativa\u00e7\u00e3o instant\u00e2nea ap\u00f3s confirma\u00e7\u00e3o do pagamento</p>';
+var params = new URLSearchParams(window.location.search);
+if (params.get('payment') === 'success') {
+  var u2 = JSON.parse(localStorage.getItem('fiscaliza_user')||'null');
+  if (u2) { u2.paid = true; localStorage.setItem('fiscaliza_user', JSON.stringify(u2)); }
+  document.getElementById('success-banner').style.display = 'block';
+  document.getElementById('success-banner').textContent = 'Pagamento confirmado! Plano Premium ativo.';
+  document.getElementById('payment-card').style.display = 'none';
 }
-document.getElementById('payment-card').innerHTML = payHtml;
+function doLogout() { auth.signOut().then(function(){ localStorage.removeItem('fiscaliza_user'); window.location.href='login.html'; }); }
+document.getElementById('logout-btn').addEventListener('click', function(e){ e.preventDefault(); doLogout(); });
+function copyPix() { navigator.clipboard.writeText('fiscalizapa@gmail.com').then(function(){ alert('Email copiado! Envie R$ 39,90 via PIX e o comprovante.'); }); }
 </script>
 </body>
 </html>
