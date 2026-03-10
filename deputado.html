@@ -4,21 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FiscalizaPA - Perfil do Deputado</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+.skeleton { background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%); background-size: 200% 100%; animation: pulse 1.5s infinite; border-radius: 6px; height: 20px; margin: 8px 0; }
+.skeleton-card { background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%); background-size: 200% 100%; animation: pulse 1.5s infinite; border-radius: 12px; height: 120px; }
+.section { animation: fadeIn 0.6s ease-out both; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.2s; }
+.section:nth-child(4) { animation-delay: 0.3s; }
+.section:nth-child(5) { animation-delay: 0.4s; }
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%); color: #333; min-height: 100vh; padding: 20px; }
 .container { max-width: 1200px; margin: 0 auto; }
-.topbar { background: #0d2818; color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
-.topbar a { color: #8fc; text-decoration: none; margin-left: 15px; }
-.topbar a:hover { text-decoration: underline; }
+.topbar { background: #0d2818; color: white; padding: 10px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; position: sticky; top: 10px; z-index: 100; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.topbar a { color: #8fc; text-decoration: none; margin-left: 15px; transition: all 0.3s; }
+.topbar a:hover { text-decoration: underline; color: #afd; }
 header { background: white; padding: 30px 20px; border-radius: 12px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 header h1 { color: #1a472a; font-size: 2em; }
-.btn-back { display: inline-block; margin: 10px 0; padding: 10px 20px; background: #2d5a3d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; }
-.btn-back:hover { background: #1a472a; }
-.section { background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn-back { display: inline-block; margin: 10px 0; padding: 10px 20px; background: #2d5a3d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: all 0.3s; }
+.btn-back:hover { background: #1a472a; transform: translateX(-5px); }
+.section { background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s; }
+.section:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
 .section h2 { color: #1a472a; border-bottom: 2px solid #1a472a; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.4em; }
 .perfil-grid { display: grid; grid-template-columns: 200px 1fr; gap: 20px; align-items: start; }
-.perfil-grid img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #1a472a; }
+.perfil-grid img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #1a472a; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s; }
+.perfil-grid img:hover { transform: scale(1.05); }
 .perfil-info p { margin: 8px 0; font-size: 1.05em; }
 .perfil-info strong { color: #1a472a; }
 .party-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; color: white; font-weight: bold; font-size: 0.9em; }
@@ -31,7 +42,8 @@ table tr:hover { background: #e8f5e9; }
 .ok { color: #2e7d32; background: #e8f5e9; padding: 8px 12px; border-radius: 6px; border-left: 4px solid #2e7d32; margin: 5px 0; }
 .loading { color: #666; font-style: italic; padding: 20px; text-align: center; }
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 15px; }
-.stat-card { background: linear-gradient(135deg, #2d5a3d, #1a472a); color: white; padding: 15px; border-radius: 8px; text-align: center; }
+.stat-card { background: linear-gradient(135deg, #2d5a3d, #1a472a); color: white; padding: 15px; border-radius: 8px; text-align: center; transition: transform 0.3s; }
+.stat-card:hover { transform: translateY(-3px); }
 .stat-card .num { font-size: 1.8em; font-weight: bold; }
 .stat-card .lbl { font-size: 0.85em; opacity: 0.9; }
 .tab-nav { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 15px; }
@@ -40,24 +52,21 @@ table tr:hover { background: #e8f5e9; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 .scrollable { max-height: 500px; overflow-y: auto; }
-.prop-item { padding: 10px; border-bottom: 1px solid #eee; }
-.prop-item:hover { background: #f5f5f5; }
+.prop-item { padding: 10px; border-bottom: 1px solid #eee; transition: all 0.2s; }
+.prop-item:hover { background: #f5f5f5; padding-left: 15px; }
 .prop-item a { color: #1a472a; text-decoration: none; font-weight: bold; }
 .prop-item a:hover { text-decoration: underline; }
 .progress-bar { height: 20px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 5px 0; }
-.progress-fill { height: 100%; border-radius: 10px; transition: width 0.5s; }
+.progress-fill { height: 100%; border-radius: 10px; transition: width 0.8s ease-out; }
 .gastos-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-bottom: 15px; }
 .gastos-cat { padding: 10px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #1a472a; cursor: pointer; transition: all 0.3s; }
-.gastos-cat:hover { background: #e8f5e9; transform: translateX(5px); }
+.gastos-cat:hover { background: #e8f5e9; transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
 .modal-overlay.active { display: flex; }
-.modal { background: white; border-radius: 12px; padding: 25px; max-width: 900px; width: 95%; max-height: 85vh; overflow-y: auto; position: relative; }
+.modal { background: white; border-radius: 12px; padding: 25px; max-width: 900px; width: 95%; max-height: 85vh; overflow-y: auto; position: relative; animation: fadeIn 0.3s; }
 .modal-close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #666; background: none; border: none; }
 .modal-close:hover { color: #d32f2f; }
-.denuncia-item { padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; margin: 8px 0; border-left: 4px solid #d32f2f; }
-.denuncia-item a { color: #1a472a; font-weight: bold; text-decoration: none; }
 .presenca-gauge { width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8em; font-weight: bold; color: white; margin: 10px auto; }
-.emenda-card { padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; margin: 8px 0; }
 .badge-danger { background: #d32f2f; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; }
 .badge-warning { background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; }
 .badge-success { background: #2e7d32; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; }
@@ -65,72 +74,83 @@ table tr:hover { background: #e8f5e9; }
 .kpi-card { text-align: center; padding: 15px; border-radius: 8px; background: #f5f5f5; }
 .kpi-card .kpi-num { font-size: 2em; font-weight: bold; color: #1a472a; }
 .kpi-card .kpi-label { font-size: 0.85em; color: #666; }
-@media (max-width: 768px) { .perfil-grid { grid-template-columns: 1fr; text-align: center; } .perfil-grid img { margin: 0 auto; } .topbar { flex-direction: column; gap: 8px; text-align: center; } }
+.score-card { background: linear-gradient(135deg, #1a472a, #2d5a3d); color: white; border-radius: 12px; padding: 25px; text-align: center; margin-bottom: 20px; }
+.score-card .score-num { font-size: 3.5em; font-weight: bold; }
+.score-card .score-label { font-size: 1.1em; opacity: 0.9; margin-top: 5px; }
+.score-bar { display: flex; gap: 3px; margin: 15px auto; max-width: 300px; }
+.score-segment { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.2); }
+.score-segment.filled { background: #4caf50; }
+.share-bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 15px 0; }
+.share-btn { padding: 8px 16px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: bold; font-size: 0.85em; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+.share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.pie-chart { width: 200px; height: 200px; border-radius: 50%; margin: 15px auto; position: relative; }
+.pie-legend { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 10px 0; }
+.pie-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.85em; }
+.pie-legend-color { width: 12px; height: 12px; border-radius: 3px; }
+.print-btn { position: fixed; bottom: 20px; right: 20px; z-index: 50; padding: 12px 20px; background: #1a472a; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; }
+.print-btn:hover { background: #2d5a3d; transform: scale(1.05); }
+@media print { .topbar, .print-btn, .share-bar, .btn-back { display: none !important; } .section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; } body { background: white; padding: 0; } }
+@media (max-width: 768px) { .perfil-grid { grid-template-columns: 1fr; text-align: center; } .perfil-grid img { margin: 0 auto; } .topbar { flex-direction: column; gap: 8px; text-align: center; position: relative; top: 0; } .stat-row { grid-template-columns: repeat(2, 1fr); } .print-btn { bottom: 10px; right: 10px; padding: 10px 15px; font-size: 0.85em; } }
 </style>
 <script>var u=JSON.parse(localStorage.getItem('fiscaliza_user')||'null');if(!u){window.location.href='login.html';}</script>
 </head>
 <body>
 <div class="container">
 <div class="topbar" id="user-bar"></div>
-<header>
-<h1>FiscalizaPA - Fiscalização de Deputados Federais do Pará</h1>
-</header>
+<header><h1>FiscalizaPA - Fiscalização de Deputados Federais do Pará</h1></header>
+<div id="score-section"></div>
 <div class="section">
 <a href="index.html" class="btn-back">← Voltar</a>
+<div class="share-bar" id="share-bar"></div>
 <h2>Perfil do Deputado</h2>
-<div id="perfil-content" class="loading">Carregando perfil...</div>
+<div id="perfil-content"><div class="skeleton" style="width:60%;height:30px"></div><div class="skeleton" style="width:40%"></div><div class="skeleton" style="width:50%"></div></div>
 </div>
 <div class="section">
 <h2>📊 Presença em Sessões da Câmara</h2>
-<div id="presenca-sessoes-content" class="loading">Carregando presença...</div>
+<div id="presenca-sessoes-content"><div class="stat-row"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div></div>
 </div>
 <div class="section">
 <h2>📰 Últimas Denúncias e Notícias</h2>
-<div id="denuncias-content" class="loading">Buscando notícias...</div>
+<div id="denuncias-content"><div class="skeleton" style="width:80%"></div><div class="skeleton" style="width:60%"></div></div>
 </div>
 <div class="section">
 <h2>📊 Resumo de Gastos</h2>
-<div id="gastos-resumo"></div>
+<div id="gastos-resumo"><div class="stat-row"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div></div>
 <button onclick="openModal(document.getElementById('gastos-table-wrap').innerHTML)" style="margin-bottom:10px;padding:8px 16px;background:#1a472a;color:white;border:none;border-radius:6px;cursor:pointer;font-weight:bold">Notas Detalhadas Por Categoria</button>
 <div id="gastos-table-wrap" style="display:none"><table id="gastos-table"><thead><tr><th>Data</th><th>Tipo</th><th>Valor</th><th>Fornecedor</th><th>CNPJ/CPF</th><th>Detalhes</th></tr></thead><tbody><tr><td colspan="6" class="loading">Carregando gastos...</td></tr></tbody></table></div>
-<div id="gastos-cat-content" class="loading">Carregando categorias...</div>
+<div id="gastos-chart"></div>
+<div id="gastos-cat-content"><div class="skeleton-card" style="height:80px;margin:5px 0"></div><div class="skeleton-card" style="height:80px;margin:5px 0"></div></div>
 </div>
 <div class="section">
 <h2>📋 Presença em Órgãos e Comissões</h2>
-<div id="presenca-content" class="loading">Carregando dados...</div>
+<div id="presenca-content"><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:90%"></div></div>
 </div>
 <div class="section">
 <h2>📝 Proposições e Projetos de Lei</h2>
-<div class="tab-nav">
-<button class="tab-btn active" onclick="showTab('proposicoes-content')">Todas</button>
-<button class="tab-btn" onclick="showTab('props-aprovadas-content')">PL/PEC</button>
-</div>
-<div id="proposicoes-content" class="tab-content active loading">Carregando...</div>
-<div id="props-aprovadas-content" class="tab-content loading">Carregando...</div>
+<div class="tab-nav"><button class="tab-btn active" onclick="showTab('proposicoes-content')">Todas</button><button class="tab-btn" onclick="showTab('props-aprovadas-content')">PL/PEC</button></div>
+<div id="proposicoes-content" class="tab-content active"><div class="skeleton" style="width:80%"></div><div class="skeleton" style="width:60%"></div><div class="skeleton" style="width:70%"></div></div>
+<div id="props-aprovadas-content" class="tab-content"><div class="skeleton" style="width:80%"></div></div>
 </div>
 <div class="section">
 <h2>💰 Emendas Parlamentares</h2>
-<div id="emendas-content" class="loading">Carregando emendas...</div>
+<div id="emendas-content"><div class="skeleton-card"></div></div>
 </div>
 <div class="section">
 <h2>🔍 Auditoria de Fornecedores (CNPJ)</h2>
-<div id="auditoria-cnpj-content" class="loading">Carregando auditoria...</div>
+<div id="auditoria-cnpj-content"><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:90%"></div></div>
 </div>
 <div class="section">
 <h2>🏆 Ranking Político</h2>
-<div id="ranking-content" class="loading">Carregando ranking...</div>
+<div id="ranking-content"><div class="skeleton-card"></div></div>
 </div>
 <div class="section">
 <h2>📈 Análise IDH vs Investimentos</h2>
-<div id="analise-idh-content" class="loading">Carregando análise...</div>
+<div id="analise-idh-content"><div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:80%"></div></div>
 </div>
-<footer style="text-align:center;color:white;padding:30px 20px;margin-top:40px;border-top:1px solid rgba(255,255,255,0.1)">
-Dados da <a href="https://dadosabertos.camara.leg.br" target="_blank" style="color:#8fc">API Câmara dos Deputados</a> | © 2025 FiscalizaPA
-</footer>
+<footer style="text-align:center;color:white;padding:30px 20px;margin-top:40px;border-top:1px solid rgba(255,255,255,0.1)">Dados da <a href="https://dadosabertos.camara.leg.br" target="_blank" style="color:#8fc">API Câmara dos Deputados</a> | © 2025 FiscalizaPA</footer>
 </div>
-<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
-<div class="modal"><button class="modal-close" onclick="closeModal()">×</button><div id="modal-content"></div></div>
-</div>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimir Relatório</button>
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="modal-close" onclick="closeModal()">×</button><div id="modal-content"></div></div></div>
 <script>
 // User bar
 (function(){
@@ -142,7 +162,6 @@ var restam = Math.max(0, 7 - dias);
 var status = usr.paid ? '<span style="color:#4f4">Premium</span>' : '<span style="color:#ff0">Trial: ' + restam + ' dias restantes</span>';
 bar.innerHTML = '<span>Bem-vindo, <strong>' + (usr.name||usr.email) + '</strong> | ' + status + '</span><span><a href="conta.html">Minha Conta</a><a href="#" onclick="localStorage.removeItem(\'fiscaliza_user\');window.location.href=\'login.html\'">Sair</a></span>';
 }})();
-
 const deputadosMap = {
 1: {nome:'Dra Alessandra Haber', idCamara:220674, partido:'MDB', votos:258907},
 2: {nome:'Delegado Eder Mauro', idCamara:178908, partido:'PL', votos:205543},
@@ -163,9 +182,10 @@ const deputadosMap = {
 17: {nome:'Raimundo Santos', idCamara:74084, partido:'PSD', votos:62366}
 };
 const partyColors = {'MDB':'#15a34a','PL':'#0066cc','PT':'#e41e1e','PSD':'#ff9900','UNIAO':'#ffd700'};
+const pieColors = ['#1a472a','#2d5a3d','#4caf50','#81c784','#ff9800','#f44336','#9c27b0','#3f51b5'];
 let allDespesas = [];
 let totalGastos = 0;
-
+let scoreData = {presenca:0, gastos:0, proposicoes:0, comissoes:0};
 function showTab(tabId) {
 document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -179,7 +199,6 @@ document.getElementById('modal-overlay').classList.add('active');
 function closeModal() {
 document.getElementById('modal-overlay').classList.remove('active');
 }
-
 async function fetchJSON(url) {
 for (var attempt = 0; attempt < 3; attempt++) {
 try {
@@ -196,7 +215,6 @@ await new Promise(function(ok){ setTimeout(ok, 2000 * (attempt+1)); });
 }
 }
 }
-
 async function fetchAllPages(baseUrl, maxPages) {
 maxPages = maxPages || 5;
 var all = [];
@@ -209,16 +227,44 @@ if (data.dados.length < 100) break;
 }
 return all;
 }
-
+function buildPieChart(catTotals, total) {
+var sorted = Object.entries(catTotals).sort(function(a,b){return b[1]-a[1]});
+var gradient = ''; var cumPct = 0;
+var legendHtml = '<div class="pie-legend">';
+sorted.forEach(function(item, i){
+var pct = (item[1]/total)*100;
+var color = pieColors[i % pieColors.length];
+var start = cumPct; cumPct += pct;
+gradient += (i>0?', ':'') + color + ' ' + start.toFixed(1) + '% ' + cumPct.toFixed(1) + '%';
+legendHtml += '<div class="pie-legend-item"><div class="pie-legend-color" style="background:'+color+'"></div>' + item[0].substring(0,30) + ' (' + pct.toFixed(1) + '%)</div>';
+});
+legendHtml += '</div>';
+return '<div class="pie-chart" style="background:conic-gradient('+gradient+')"></div>' + legendHtml;
+}
+function updateScore() {
+var presScore = Math.min(10, Math.round(scoreData.presenca / 10));
+var gastosScore = scoreData.gastos < 200000 ? 8 : scoreData.gastos < 500000 ? 5 : 2;
+var propScore = Math.min(10, Math.round(scoreData.proposicoes / 50));
+var comScore = Math.min(10, Math.round(scoreData.comissoes * 2));
+var total = Math.round((presScore + gastosScore + propScore + comScore) / 4 * 10);
+var grade = total >= 80 ? 'A' : total >= 60 ? 'B' : total >= 40 ? 'C' : 'D';
+var gradeColor = total >= 80 ? '#4caf50' : total >= 60 ? '#ff9800' : total >= 40 ? '#ff5722' : '#d32f2f';
+var segments = '';
+for(var i=0;i<10;i++) segments += '<div class="score-segment'+(i<Math.round(total/10)?' filled':'')+'"></div>';
+document.getElementById('score-section').innerHTML = '<div class="score-card"><div style="font-size:0.9em;opacity:0.8;margin-bottom:5px">INDICE DE TRANSPARENCIA</div><div class="score-num" style="color:'+gradeColor+'">'+total+'/100 <span style="font-size:0.5em">'+grade+'</span></div><div class="score-bar">'+segments+'</div><div style="display:flex;justify-content:space-around;margin-top:15px;font-size:0.85em"><div>Presenca: '+presScore+'/10</div><div>Gastos: '+gastosScore+'/10</div><div>Proposicoes: '+propScore+'/10</div><div>Comissoes: '+comScore+'/10</div></div></div>';
+}
 var urlParams = new URLSearchParams(window.location.search);
 var id = parseInt(urlParams.get('id'));
 var dep = deputadosMap[id];
 if (!dep) {
 document.querySelector('.container').innerHTML = '<div class="section"><h2>Deputado nao encontrado</h2><a href="index.html" class="btn-back">Voltar</a></div>';
 } else {
+// Share bar
+var shareUrl = encodeURIComponent(window.location.href);
+var shareText = encodeURIComponent('Veja o perfil de ' + dep.nome + ' no FiscalizaPA');
+document.getElementById('share-bar').innerHTML = '<button class="share-btn" style="background:#25d366" onclick="window.open(\'https://wa.me/?text='+shareText+'%20'+shareUrl+'\',\'_blank\')">WhatsApp</button><button class="share-btn" style="background:#1da1f2" onclick="window.open(\'https://twitter.com/intent/tweet?text='+shareText+'&url='+shareUrl+'\',\'_blank\')">Twitter</button><button class="share-btn" style="background:#0077b5" onclick="window.open(\'https://www.linkedin.com/sharing/share-offsite/?url='+shareUrl+'\',\'_blank\')">LinkedIn</button><button class="share-btn" style="background:#666" onclick="navigator.clipboard.writeText(window.location.href);this.textContent=\'Copiado!\';setTimeout(()=>{this.textContent=\'Copiar Link\'},2000)">Copiar Link</button>';
 loadAllData(dep.idCamara, dep);
 }
-
 async function loadAllData(idCamara, depInfo) {
 var API = 'https://dadosabertos.camara.leg.br/api/v2';
 // 1. PERFIL
@@ -226,17 +272,17 @@ try {
 var d = await fetchJSON(API + '/deputados/' + idCamara + '?formato=json');
 var p = d.dados.ultimoStatus;
 var color = partyColors[depInfo.partido] || '#666';
+var anexo = (p.gabinete && p.gabinete.anexo) ? p.gabinete.anexo : 'N/A';
 document.getElementById('perfil-content').innerHTML = '<div class="perfil-grid"><img src="' + p.urlFoto + '" alt="' + p.nome + '"><div class="perfil-info">' +
 '<p><strong>Nome:</strong> ' + p.nome + '</p>' +
 '<p><strong>Partido:</strong> <span class="party-badge" style="background:' + color + '">' + p.siglaPartido + '</span></p>' +
 '<p><strong>UF:</strong> ' + p.siglaUf + '</p>' +
-'<p><strong>Situa\u00e7\u00e3o:</strong> ' + (p.situacao || 'Exerc\u00edcio') + '</p>' +
-'<p><strong>Gabinete:</strong> Sala ' + (p.gabinete ? p.gabinete.sala : 'N/A') + ' - Anexo ' + (p.gabinete ? p.gabinete.anexo : '') + '</p>' +
+'<p><strong>Situacao:</strong> ' + (p.situacao || 'Exercicio') + '</p>' +
+'<p><strong>Gabinete:</strong> Sala ' + (p.gabinete ? p.gabinete.sala : 'N/A') + ' - Anexo ' + anexo + '</p>' +
 '<p><strong>Telefone:</strong> ' + (p.gabinete ? p.gabinete.telefone : 'N/A') + '</p>' +
 '<p><strong>Email:</strong> ' + (p.gabinete ? p.gabinete.email : 'N/A') + '</p>' +
 '<p><strong>Votos 2022:</strong> ' + depInfo.votos.toLocaleString('pt-BR') + '</p>' +
 '</div></div>';
-document.getElementById('perfil-content').classList.remove('loading');
 } catch(e) {
 document.getElementById('perfil-content').innerHTML = '<p class="alert">Erro ao carregar perfil: ' + e.message + ' - <button onclick="location.reload()" style="padding:4px 12px;background:#1a472a;color:white;border:none;border-radius:4px;cursor:pointer">Tentar novamente</button></p>';
 }
@@ -246,30 +292,30 @@ var eventos = await fetchAllPages(API + '/deputados/' + idCamara + '/eventos?dat
 var totalEventos = eventos.length;
 var presentes = eventos.filter(function(e){return e.descricaoTipo && e.descricaoTipo.toLowerCase().indexOf('sess') >= 0;}).length;
 var pctPresenca = totalEventos > 0 ? ((presentes / Math.max(totalEventos, 1)) * 100).toFixed(1) : 'N/A';
+scoreData.presenca = parseFloat(pctPresenca) || 0;
 var gaugeColor = pctPresenca >= 75 ? '#2e7d32' : pctPresenca >= 50 ? '#ff9800' : '#d32f2f';
 var presHtml = '<div class="stat-row">' +
 '<div class="stat-card"><div class="num">' + totalEventos + '</div><div class="lbl">Eventos Registrados (2025)</div></div>' +
-'<div class="stat-card"><div class="num">' + presentes + '</div><div class="lbl">Sess\u00f5es Presentes</div></div>' +
-'<div class="stat-card" style="background:' + gaugeColor + '"><div class="num">' + pctPresenca + '%</div><div class="lbl">Taxa de Presen\u00e7a</div></div></div>';
+'<div class="stat-card"><div class="num">' + presentes + '</div><div class="lbl">Sessoes Presentes</div></div>' +
+'<div class="stat-card" style="background:' + gaugeColor + '"><div class="num">' + pctPresenca + '%</div><div class="lbl">Taxa de Presenca</div></div></div>';
 presHtml += '<div class="presenca-gauge" style="background:conic-gradient(' + gaugeColor + ' ' + pctPresenca + '%, #e0e0e0 0)">' + pctPresenca + '%</div>';
-presHtml += '<h3 style="margin-top:15px;color:#1a472a">\u00daltimos Eventos</h3><div class="scrollable"><table><thead><tr><th>Data</th><th>Tipo</th><th>Descri\u00e7\u00e3o</th><th>Local</th></tr></thead><tbody>';
+presHtml += '<h3 style="margin-top:15px;color:#1a472a">Ultimos Eventos</h3><div class="scrollable"><table><thead><tr><th>Data</th><th>Tipo</th><th>Descricao</th><th>Local</th></tr></thead><tbody>';
 eventos.slice(0,50).forEach(function(ev){
 presHtml += '<tr><td>' + (ev.dataHoraInicio||'').substring(0,10) + '</td><td>' + (ev.descricaoTipo||'') + '</td><td>' + (ev.descricao||'').substring(0,80) + '</td><td>' + (ev.localCamara ? ev.localCamara.nome : '') + '</td></tr>';
 });
 presHtml += '</tbody></table></div>';
 document.getElementById('presenca-sessoes-content').innerHTML = presHtml;
-document.getElementById('presenca-sessoes-content').classList.remove('loading');
+updateScore();
 } catch(e) { document.getElementById('presenca-sessoes-content').innerHTML = '<p class="alert">Erro: ' + e.message + '</p>'; }
 // 3. DENUNCIAS
 try {
 var nomeSearch = encodeURIComponent(depInfo.nome);
-var denHtml = '<p><strong>Busca autom\u00e1tica de not\u00edcias sobre ' + depInfo.nome + '</strong></p><div style="margin:10px 0">';
+var denHtml = '<p><strong>Busca automatica de noticias sobre ' + depInfo.nome + '</strong></p><div style="margin:10px 0">';
 denHtml += '<a href="https://www.google.com/search?q=' + nomeSearch + '+deputado+denuncia+irregularidade&tbm=nws" target="_blank" style="display:inline-block;padding:10px 20px;background:#1a472a;color:white;border-radius:6px;text-decoration:none;margin:5px">Google News</a> ';
-denHtml += '<a href="https://www.google.com/search?q=' + nomeSearch + '+deputado+investigacao+ministerio+publico" target="_blank" style="display:inline-block;padding:10px 20px;background:#d32f2f;color:white;border-radius:6px;text-decoration:none;margin:5px">Investiga\u00e7\u00f5es MP</a> ';
+denHtml += '<a href="https://www.google.com/search?q=' + nomeSearch + '+deputado+investigacao+ministerio+publico" target="_blank" style="display:inline-block;padding:10px 20px;background:#d32f2f;color:white;border-radius:6px;text-decoration:none;margin:5px">Investigacoes MP</a> ';
 denHtml += '<a href="https://www.google.com/search?q=' + nomeSearch + '+deputado+TCU+irregularidade" target="_blank" style="display:inline-block;padding:10px 20px;background:#ff9800;color:white;border-radius:6px;text-decoration:none;margin:5px">TCU</a></div>';
-denHtml += '<p style="color:#666;font-size:0.9em"><em>Clique nos bot\u00f5es para verificar den\u00fancias recentes.</em></p>';
+denHtml += '<p style="color:#666;font-size:0.9em"><em>Clique nos botoes para verificar denuncias recentes.</em></p>';
 document.getElementById('denuncias-content').innerHTML = denHtml;
-document.getElementById('denuncias-content').classList.remove('loading');
 } catch(e) { document.getElementById('denuncias-content').innerHTML = '<p>Erro ao buscar.</p>'; }
 // 4. GASTOS CEAP
 try {
@@ -290,64 +336,66 @@ var tr = document.createElement('tr');
 tr.innerHTML = '<td>' + (n.dataDocumento||'').substring(0,10) + '</td><td>' + tipo + '</td><td>R$ ' + v.toFixed(2) + '</td><td>' + (n.nomeFornecedor||'N/A') + '</td><td>' + (n.cnpjCpfFornecedor||'N/A') + '</td><td><button onclick="showNotaDetalhe(' + idx + ')" style="padding:4px 8px;background:#1a472a;color:white;border:none;border-radius:4px;cursor:pointer">Ver</button></td>';
 tbody.appendChild(tr);
 });
+scoreData.gastos = totalGastos;
 var media = totalGastos / allDespesas.length;
 document.getElementById('gastos-resumo').innerHTML = '<div class="stat-row">' +
 '<div class="stat-card"><div class="num">R$ ' + totalGastos.toLocaleString('pt-BR',{minimumFractionDigits:2}) + '</div><div class="lbl">Total Gastos CEAP</div></div>' +
 '<div class="stat-card"><div class="num">' + allDespesas.length + '</div><div class="lbl">Notas Fiscais</div></div>' +
 '<div class="stat-card"><div class="num">' + Object.keys(catTotals).length + '</div><div class="lbl">Categorias</div></div>' +
-'<div class="stat-card"><div class="num">R$ ' + media.toFixed(2) + '</div><div class="lbl">M\u00e9dia por Nota</div></div></div>';
+'<div class="stat-card"><div class="num">R$ ' + media.toFixed(2) + '</div><div class="lbl">Media por Nota</div></div></div>';
+document.getElementById('gastos-chart').innerHTML = '<h3 style="color:#1a472a;text-align:center;margin:15px 0">Distribuicao de Gastos</h3>' + buildPieChart(catTotals, totalGastos);
 var sorted = Object.entries(catTotals).sort(function(a,b){return b[1]-a[1]});
 var catHtml = '<div class="gastos-resumo">';
 sorted.forEach(function(item){
 var cat = item[0]; var val = item[1];
 var pct = ((val/totalGastos)*100).toFixed(1);
 var qtd = catNotas[cat].length;
-catHtml += '<div class="gastos-cat" onclick="showCatNotas(\'' + cat.replace(/'/g,"\\'")+'\')"><strong>' + cat + '</strong><br>R$ ' + val.toLocaleString('pt-BR',{minimumFractionDigits:2}) + ' (' + pct + '%) - ' + qtd + ' notas<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;background:#1a472a"></div></div><small style="color:#666">Clique para ver</small></div>';
+catHtml += '<div class="gastos-cat" onclick="showCatNotas(\'' + cat.replace(/'/g,"\\'")+'\')">' + '<strong>' + cat + '</strong><br>R$ ' + val.toLocaleString('pt-BR',{minimumFractionDigits:2}) + ' (' + pct + '%) - ' + qtd + ' notas<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%;background:#1a472a"></div></div><small style="color:#666">Clique para ver</small></div>';
 });
 catHtml += '</div>';
 document.getElementById('gastos-cat-content').innerHTML = catHtml;
-document.getElementById('gastos-cat-content').classList.remove('loading');
 window._catNotas = catNotas;
+updateScore();
 }
 } catch(e) { console.error('Erro gastos:', e); document.querySelector('#gastos-table tbody').innerHTML = '<tr><td colspan="6" class="alert">Erro: ' + e.message + '</td></tr>'; }
 // 5. ORGAOS
 try {
 var orgaos = await fetchAllPages(API + '/deputados/' + idCamara + '/orgaos');
+scoreData.comissoes = orgaos.length;
 if (orgaos.length === 0) { document.getElementById('presenca-content').innerHTML = '<p>Nenhum registro.</p>'; }
 else {
-var html = '<p><strong>Total: ' + orgaos.length + '</strong></p><table><thead><tr><th>Sigla</th><th>\u00d3rg\u00e3o</th><th>Cargo</th><th>In\u00edcio</th><th>Fim</th></tr></thead><tbody>';
+var html = '<p><strong>Total: ' + orgaos.length + '</strong></p><table><thead><tr><th>Sigla</th><th>Orgao</th><th>Cargo</th><th>Inicio</th><th>Fim</th></tr></thead><tbody>';
 orgaos.forEach(function(o){ html += '<tr><td><strong>' + (o.siglaOrgao||'') + '</strong></td><td>' + (o.nomeOrgao||'') + '</td><td>' + (o.titulo||'Membro') + '</td><td>' + (o.dataInicio||'').substring(0,10) + '</td><td>' + (o.dataFim||'Atual').substring(0,10) + '</td></tr>'; });
 html += '</tbody></table>';
 document.getElementById('presenca-content').innerHTML = html;
 }
-document.getElementById('presenca-content').classList.remove('loading');
+updateScore();
 } catch(e) { document.getElementById('presenca-content').innerHTML = '<p class="alert">Erro: ' + e.message + '</p>'; }
 // 6. PROPOSICOES
 try {
 var props = await fetchAllPages(API + '/proposicoes?idDeputadoAutor=' + idCamara + '&ordem=DESC&ordenarPor=id');
+scoreData.proposicoes = props.length;
 if (props.length === 0) { document.getElementById('proposicoes-content').innerHTML = '<p>Nenhuma.</p>'; }
 else {
 var html = '<p><strong>Total: ' + props.length + '</strong></p>';
 props.forEach(function(p){ html += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
 document.getElementById('proposicoes-content').innerHTML = html;
 }
-document.getElementById('proposicoes-content').classList.remove('loading');
-var pl = props.filter(function(p){return p.siglaTipo==='PL'||p.siglaTipo==='PEC';});
+var pl = props.filter(function(p){return p.siglaTipo==='PL'||p.siglaTipo==='PEC'||p.siglaTipo==='PLP';});
 if (pl.length > 0) {
-var ahtml = '<p><strong>' + pl.length + ' PL/PEC</strong></p>';
+var ahtml = '<p><strong>' + pl.length + ' PL/PEC/PLP</strong></p>';
 pl.forEach(function(p){ ahtml += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
 document.getElementById('props-aprovadas-content').innerHTML = ahtml;
 } else { document.getElementById('props-aprovadas-content').innerHTML = '<p>Nenhum PL/PEC.</p>'; }
-document.getElementById('props-aprovadas-content').classList.remove('loading');
+updateScore();
 } catch(e) { document.getElementById('proposicoes-content').innerHTML = '<p class="alert">Erro: ' + e.message + '</p>'; }
 // 7. EMENDAS
 try {
-var emendasHtml = '<div class="kpi-grid"><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Total Emendas</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Valor Total</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Munic\u00edpios</div></div></div>';
+var emendasHtml = '<div class="kpi-grid"><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Total Emendas</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Valor Total</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Municipios</div></div></div>';
 emendasHtml += '<p>Consulte emendas nos portais oficiais:</p><div style="margin:10px 0">';
-emendasHtml += '<a href="https://portaldatransparencia.gov.br/emendas?de=' + encodeURIComponent(depInfo.nome) + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#1a472a;color:white;border-radius:6px;text-decoration:none;margin:5px">Portal da Transpar\u00eancia</a> ';
-emendasHtml += '<a href="https://www.camara.leg.br/deputados/' + idCamara + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#2d5a3d;color:white;border-radius:6px;text-decoration:none;margin:5px">P\u00e1gina na C\u00e2mara</a></div>';
+emendasHtml += '<a href="https://portaldatransparencia.gov.br/emendas?de=' + encodeURIComponent(depInfo.nome) + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#1a472a;color:white;border-radius:6px;text-decoration:none;margin:5px">Portal da Transparencia</a> ';
+emendasHtml += '<a href="https://www.camara.leg.br/deputados/' + idCamara + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#2d5a3d;color:white;border-radius:6px;text-decoration:none;margin:5px">Pagina na Camara</a></div>';
 document.getElementById('emendas-content').innerHTML = emendasHtml;
-document.getElementById('emendas-content').classList.remove('loading');
 } catch(e) { console.error(e); }
 // 8. AUDITORIA CNPJ
 try {
@@ -356,42 +404,38 @@ var fornecedores = {};
 allDespesas.forEach(function(n){ var cnpj = n.cnpjCpfFornecedor||''; if(cnpj.length>=11){ if(!fornecedores[cnpj]) fornecedores[cnpj]={nome:n.nomeFornecedor,total:0,count:0,notas:[]}; fornecedores[cnpj].total+=(n.valorLiquido||n.valorDocumento||0); fornecedores[cnpj].count++; fornecedores[cnpj].notas.push(n); }});
 var sortedF = Object.entries(fornecedores).sort(function(a,b){return b[1].total-a[1].total});
 window._fornecedores = fornecedores;
-var html = '<p><strong>' + sortedF.length + ' fornecedores \u00fanicos</strong></p><table><thead><tr><th>CNPJ/CPF</th><th>Fornecedor</th><th>Total</th><th>Qtd</th><th>Status</th><th>Detalhes</th></tr></thead><tbody>';
+var html = '<p><strong>' + sortedF.length + ' fornecedores unicos</strong></p><table><thead><tr><th>CNPJ/CPF</th><th>Fornecedor</th><th>Total</th><th>Qtd</th><th>Status</th><th>Detalhes</th></tr></thead><tbody>';
 sortedF.slice(0,50).forEach(function(item){ var cnpj=item[0]; var info=item[1]; var alerta = info.count>20?'<span class="badge-danger">ALTA FREQ</span>':info.count>10?'<span class="badge-warning">FREQUENTE</span>':'<span class="badge-success">Normal</span>'; html += '<tr><td>'+cnpj+'</td><td>'+info.nome+'</td><td>R$ '+info.total.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td><td>'+info.count+'</td><td>'+alerta+'</td><td><button onclick="showFornecedorDetalhe(\''+cnpj+'\')" style="padding:4px 8px;background:#1a472a;color:white;border:none;border-radius:4px;cursor:pointer">Ver</button></td></tr>'; });
 html += '</tbody></table>';
 if(sortedF.length>0){ html+='<h3 style="margin-top:15px;color:#1a472a">Top 5</h3><ol>'; sortedF.slice(0,5).forEach(function(item){ var cnpj=item[0];var info=item[1]; html+='<li><strong>'+info.nome+'</strong> ('+cnpj+') - R$ '+info.total.toLocaleString('pt-BR',{minimumFractionDigits:2})+' em '+info.count+' notas <a href="https://www.google.com/search?q='+encodeURIComponent(cnpj+' '+info.nome)+'" target="_blank" style="color:#d32f2f">[Pesquisar]</a></li>'; }); html+='</ol>'; }
 document.getElementById('auditoria-cnpj-content').innerHTML = html;
 } else { document.getElementById('auditoria-cnpj-content').innerHTML = '<p>Sem dados.</p>'; }
-document.getElementById('auditoria-cnpj-content').classList.remove('loading');
 } catch(e) { document.getElementById('auditoria-cnpj-content').innerHTML = '<p class="alert">Erro: '+e.message+'</p>'; }
 // 9. RANKING
 try {
 var economia = totalGastos < 500000;
-var html = '<div class="stat-row"><div class="stat-card"><div class="num">R$ ' + totalGastos.toLocaleString('pt-BR',{minimumFractionDigits:2}) + '</div><div class="lbl">Total Gastos CEAP</div></div><div class="stat-card" style="background:' + (economia?'#2e7d32':'#c62828') + '"><div class="num">' + (economia?'ECON\u00d4MICO':'ACIMA DA M\u00c9DIA') + '</div><div class="lbl">vs M\u00e9dia Deputados PA</div></div></div>';
+var html = '<div class="stat-row"><div class="stat-card"><div class="num">R$ ' + totalGastos.toLocaleString('pt-BR',{minimumFractionDigits:2}) + '</div><div class="lbl">Total Gastos CEAP</div></div><div class="stat-card" style="background:' + (economia?'#2e7d32':'#c62828') + '"><div class="num">' + (economia?'ECONOMICO':'ACIMA DA MEDIA') + '</div><div class="lbl">vs Media Deputados PA</div></div></div>';
 document.getElementById('ranking-content').innerHTML = html;
-document.getElementById('ranking-content').classList.remove('loading');
 } catch(e) { document.getElementById('ranking-content').innerHTML = '<p class="alert">Erro</p>'; }
 // 10. IDH
 try {
-var mun = [{nome:'Bel\u00e9m',idh:0.746,saude:72,educacao:68,san:55},{nome:'Ananindeua',idh:0.718,saude:65,educacao:60,san:42},{nome:'Santar\u00e9m',idh:0.691,saude:60,educacao:55,san:35},{nome:'Marab\u00e1',idh:0.668,saude:58,educacao:52,san:30},{nome:'Parauapebas',idh:0.715,saude:70,educacao:63,san:48},{nome:'Castanhal',idh:0.673,saude:62,educacao:57,san:38},{nome:'Abaetetuba',idh:0.628,saude:55,educacao:48,san:25},{nome:'Camet\u00e1',idh:0.593,saude:50,educacao:42,san:18},{nome:'Bragan\u00e7a',idh:0.600,saude:52,educacao:45,san:22},{nome:'Altamira',idh:0.665,saude:58,educacao:52,san:32},{nome:'Tucuru\u00ed',idh:0.666,saude:59,educacao:53,san:33},{nome:'Itaituba',idh:0.640,saude:54,educacao:47,san:20}];
-var idhHtml = '<p><strong>Munic\u00edpios do Par\u00e1 - Indicadores Sociais</strong></p><table><thead><tr><th>Munic\u00edpio</th><th>IDH</th><th>Sa\u00fade %</th><th>Educa\u00e7\u00e3o %</th><th>Saneamento %</th><th>Alertas</th></tr></thead><tbody>';
-mun.forEach(function(m){ var a=[]; if(m.san<30)a.push('<span class="badge-danger">Saneamento cr\u00edtico</span>'); if(m.saude<55)a.push('<span class="badge-warning">Sa\u00fade</span>'); if(m.educacao<50)a.push('<span class="badge-warning">Educa\u00e7\u00e3o</span>'); if(m.idh<0.650)a.push('<span class="badge-danger">IDH baixo</span>'); idhHtml+='<tr><td>'+m.nome+'</td><td>'+m.idh+'</td><td>'+m.saude+'%</td><td>'+m.educacao+'%</td><td>'+m.san+'%</td><td>'+(a.length>0?a.join(' '):'<span class="badge-success">OK</span>')+'</td></tr>'; });
+var mun = [{nome:'Belem',idh:0.746,saude:72,educacao:68,san:55},{nome:'Ananindeua',idh:0.718,saude:65,educacao:60,san:42},{nome:'Santarem',idh:0.691,saude:60,educacao:55,san:35},{nome:'Maraba',idh:0.668,saude:58,educacao:52,san:30},{nome:'Parauapebas',idh:0.715,saude:70,educacao:63,san:48},{nome:'Castanhal',idh:0.673,saude:62,educacao:57,san:38},{nome:'Abaetetuba',idh:0.628,saude:55,educacao:48,san:25},{nome:'Cameta',idh:0.593,saude:50,educacao:42,san:18},{nome:'Braganca',idh:0.600,saude:52,educacao:45,san:22},{nome:'Altamira',idh:0.665,saude:58,educacao:52,san:32},{nome:'Tucurui',idh:0.666,saude:59,educacao:53,san:33},{nome:'Itaituba',idh:0.640,saude:54,educacao:47,san:20}];
+var idhHtml = '<p><strong>Municipios do Para - Indicadores Sociais</strong></p><table><thead><tr><th>Municipio</th><th>IDH</th><th>Saude %</th><th>Educacao %</th><th>Saneamento %</th><th>Alertas</th></tr></thead><tbody>';
+mun.forEach(function(m){ var a=[]; if(m.san<30)a.push('<span class="badge-danger">Saneamento critico</span>'); if(m.saude<55)a.push('<span class="badge-warning">Saude</span>'); if(m.educacao<50)a.push('<span class="badge-warning">Educacao</span>'); if(m.idh<0.650)a.push('<span class="badge-danger">IDH baixo</span>'); idhHtml+='<tr><td>'+m.nome+'</td><td>'+m.idh+'</td><td>'+m.saude+'%</td><td>'+m.educacao+'%</td><td>'+m.san+'%</td><td>'+(a.length>0?a.join(' '):'<span class="badge-success">OK</span>')+'</td></tr>'; });
 idhHtml += '</tbody></table><p style="color:#666;font-size:0.9em;margin-top:10px"><em>Dados IDH: Atlas Brasil (PNUD)</em></p>';
 document.getElementById('analise-idh-content').innerHTML = idhHtml;
-document.getElementById('analise-idh-content').classList.remove('loading');
-} catch(e) { document.getElementById('analise-idh-content').innerHTML = '<p>Dados indispon\u00edveis.</p>'; document.getElementById('analise-idh-content').classList.remove('loading'); }
+} catch(e) { document.getElementById('analise-idh-content').innerHTML = '<p>Dados indisponiveis.</p>'; }
 } // end loadAllData
-
 function showNotaDetalhe(idx) {
 var n = allDespesas[idx]; if(!n)return;
 var html = '<h2 style="color:#1a472a">Detalhe da Nota</h2><table>';
 html += '<tr><td><strong>Data</strong></td><td>'+(n.dataDocumento||'N/A')+'</td></tr>';
 html += '<tr><td><strong>Tipo Despesa</strong></td><td>'+(n.tipoDespesa||'N/A')+'</td></tr>';
 html += '<tr><td><strong>Tipo Documento</strong></td><td>'+(n.tipoDocumento||'N/A')+'</td></tr>';
-html += '<tr><td><strong>N\u00ba Documento</strong></td><td>'+(n.numDocumento||'N/A')+'</td></tr>';
+html += '<tr><td><strong>No Documento</strong></td><td>'+(n.numDocumento||'N/A')+'</td></tr>';
 html += '<tr><td><strong>Valor Documento</strong></td><td>R$ '+(n.valorDocumento||0).toFixed(2)+'</td></tr>';
 html += '<tr><td><strong>Valor Glosa</strong></td><td>R$ '+(n.valorGlosa||0).toFixed(2)+'</td></tr>';
-html += '<tr><td><strong>Valor L\u00edquido</strong></td><td>R$ '+(n.valorLiquido||0).toFixed(2)+'</td></tr>';
+html += '<tr><td><strong>Valor Liquido</strong></td><td>R$ '+(n.valorLiquido||0).toFixed(2)+'</td></tr>';
 html += '<tr><td><strong>Fornecedor</strong></td><td>'+(n.nomeFornecedor||'N/A')+'</td></tr>';
 html += '<tr><td><strong>CNPJ/CPF</strong></td><td>'+(n.cnpjCpfFornecedor||'N/A')+'</td></tr>';
 html += '<tr><td><strong>Trecho</strong></td><td>'+(n.trecho||'N/A')+'</td></tr></table>';
@@ -415,6 +459,4 @@ html += '<h3 style="margin-top:15px">Todas as Notas</h3><div style="max-height:5
 info.notas.forEach(function(n){ html+='<tr><td>'+(n.dataDocumento||'').substring(0,10)+'</td><td>'+(n.tipoDespesa||'')+'</td><td>R$ '+(n.valorLiquido||0).toFixed(2)+'</td><td>'+(n.numDocumento||'')+'</td></tr>'; });
 html += '</tbody></table></div>'; openModal(html);
 }
-</script>
-</body>
-</html>
+</script></body></html>
