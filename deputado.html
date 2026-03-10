@@ -184,8 +184,8 @@ async function fetchJSON(url) {
 for (var attempt = 0; attempt < 3; attempt++) {
 try {
 var controller = new AbortController();
-var tid = setTimeout(function(){ controller.abort(); }, 20000);
-var r = await fetch(url, {headers:{'Accept':'application/json'}, signal: controller.signal});
+var tid = setTimeout(function(){ controller.abort(); }, 30000);
+var u2 = url.indexOf('?') >= 0 ? url + '&formato=json' : url + '?formato=json'; var r = await fetch(u2, {headers:{'Accept':'application/json'}, signal: controller.signal, mode:'cors'});
 clearTimeout(tid);
 if (!r.ok) throw new Error('HTTP ' + r.status);
 return await r.json();
@@ -223,7 +223,7 @@ async function loadAllData(idCamara, depInfo) {
 var API = 'https://dadosabertos.camara.leg.br/api/v2';
 // 1. PERFIL
 try {
-var d = await fetchJSON(API + '/deputados/' + idCamara);
+var d = await fetchJSON(API + '/deputados/' + idCamara + '?formato=json');
 var p = d.dados.ultimoStatus;
 var color = partyColors[depInfo.partido] || '#666';
 document.getElementById('perfil-content').innerHTML = '<div class="perfil-grid"><img src="' + p.urlFoto + '" alt="' + p.nome + '"><div class="perfil-info">' +
