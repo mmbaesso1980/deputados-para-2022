@@ -501,3 +501,61 @@ async function runAIInvestigation() {
 // Init FiscalizaPA Core
 if(window.FiscalizaPA) FiscalizaPA.initFiscalizaCore('deputado', dep ? dep.idCamara : null);
 </script></body></html>
+
+// ========== CHAT IA BAR ==========
+function initChatBar() {
+  var chatHTML = '<div id="chat-ia-bar" style="position:fixed;bottom:0;left:0;right:0;background:#111;border-top:2px solid #4fc3f7;padding:12px 20px;z-index:9999;display:flex;gap:10px;align-items:center">' +
+    '<input id="chat-input" type="text" placeholder="Pergunte sobre este deputado..." style="flex:1;padding:12px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:1em">' +
+    '<button onclick="sendChatQuestion()" style="padding:12px 24px;background:linear-gradient(135deg,#635bff,#7c3aed);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer">Perguntar</button>' +
+    '<span id="chat-credits" style="color:#888;font-size:.8em;min-width:80px"></span></div>' +
+    '<div id="chat-result" style="position:fixed;bottom:60px;left:20px;right:20px;max-height:50vh;overflow-y:auto;background:#111;border:1px solid #333;border-radius:12px;padding:20px;display:none;z-index:9998;color:#e0e0e0"></div>' +
+    '<div id="chat-related" style="position:fixed;bottom:60px;right:20px;display:none;z-index:9997"></div>';
+  document.body.insertAdjacentHTML('beforeend', chatHTML);
+  var usr = JSON.parse(localStorage.getItem('fiscaliza_user') || 'null');
+  if (usr && usr.uid && window.FiscalizaCore) {
+    FiscalizaCore.initUserCredits(usr.uid).then(function(r) {
+      document.getElementById('chat-credits').textContent = r.credits + ' creditos';
+    });
+  }
+}
+async function sendChatQuestion() {
+  var input = document.getElementById('chat-input');
+  var q = input.value.trim();
+  if (!q) return;
+  var resultDiv = document.getElementById('chat-result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = '<p style="color:#4fc3f7">Analisando...</p>';
+  var usr = JSON.parse(localStorage.getItem('fiscaliza_user') || 'null');
+  if (!usr || !usr.uid) { resultDiv.innerHTML = '<p style="color:#ff5252">Faca login para usar o chat IA.</p>'; return; }
+  if (!dep) { resultDiv.innerHTML = '<p style="color:#ff5252">Carregando dados do deputado...</p>'; return; }
+  try {
+    var gastosData = {};
+    if (allDespesas && allDespesas.length > 0) {
+      allDespesas.forEach(function(n){ var t=n.tipoDespesa||'Outros'; gastosData[t]=(gastosData[t]||0)+(n.valorLiquido||0); });
+    }
+    var res = await FiscalizaCore.chatIA(usr.uid, q, dep.nome, dep.idCamara, gastosData);
+    if (res.error === 'sem_creditos') {
+      resultDiv.innerHTML = '<p style="color:#ff9800">Creditos insuficientes. <a href="conta.html" style="color:#4fc3f7">Comprar creditos</a></p>';
+      return;
+    }
+    resultDiv.innerHTML = res.answer + (res.from_cache ? '<div style="margin-top:10px;color:#666;font-size:.8em">Resposta em cache (1 credito)</div>' : '');
+    document.getElementById('chat-credits').textContent = '';
+    FiscalizaCore.initUserCredits(usr.uid).then(function(r) {
+      document.getElementById('chat-credits').textContent = r.credits + ' creditos';
+    });
+    if (res.related && res.related.length > 0) {
+      var relHTML = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">';
+      res.related.forEach(function(rq) {
+        relHTML += '<button onclick="document.getElementById(\'chat-input\').value=this.textContent;sendChatQuestion()" style="padding:8px 12px;background:#1a1a1a;border:1px solid #333;border-radius:20px;color:#4fc3f7;cursor:pointer;font-size:.8em">' + rq + '</button>';
+      });
+      relHTML += '</div>';
+      resultDiv.innerHTML += relHTML;
+    }
+    input.value = '';
+  } catch(e) { resultDiv.innerHTML = '<p style="color:#ff5252">Erro: ' + e.message + '</p>'; }
+}
+document.addEventListener('DOMContentLoaded', function() { setTimeout(initChatBar, 1000); });
+// Dark theme override
+var darkCSS = document.createElement('style');
+darkCSS.textContent = 'body{background:#0a0a0a !important;color:#e0e0e0 !important} .container{background:transparent !important} .section{background:#111 !important;border:1px solid #222 !important;color:#e0e0e0 !important} .section h2,.section h3{color:#fff !important} .topbar,.header{background:#111 !important;border-bottom:1px solid #222 !important} a{color:#4fc3f7 !important} .card,.info-card{background:#111 !important;border:1px solid #222 !important;color:#e0e0e0 !important} table{color:#e0e0e0 !important} table th{background:#1a1a1a !important;color:#fff !important} table td{border-color:#222 !important} .skeleton,.skeleton-card{background:#1a1a1a !important} .btn-ia{background:linear-gradient(135deg,#635bff,#7c3aed) !important;color:#fff !important;border:none !important}';
+document.head.appendChild(darkCSS);
