@@ -15,8 +15,6 @@ body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, 
 .btn-social { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s; background: white; color: #333; }
 .btn-social:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .btn-social.google:hover { border-color: #4285f4; }
-.btn-social.instagram:hover { border-color: #e1306c; }
-.btn-social.apple:hover { border-color: #000; }
 .btn-social svg, .btn-social img { width: 22px; height: 22px; }
 .divider { display: flex; align-items: center; margin: 20px 0; color: #999; }
 .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #ddd; }
@@ -30,7 +28,9 @@ body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, 
 .form-group input:focus { outline: none; border-color: #1a472a; }
 .btn-primary { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 1.05em; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, #1a472a, #2d5a3d); color: white; transition: all 0.3s; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,71,42,0.4); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .error-msg { background: #fee; color: #c00; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: none; font-size: 0.9em; text-align: center; }
+.success-msg { background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: none; font-size: 0.9em; text-align: center; }
 .pricing { background: linear-gradient(135deg, #f0f7f0, #e8f5e9); border-radius: 12px; padding: 25px; margin-top: 25px; text-align: center; border: 1px solid #c8e6c9; }
 .pricing h3 { color: #1a472a; margin-bottom: 8px; font-size: 1.2em; }
 .pricing .price { font-size: 2.5em; font-weight: 800; color: #1a472a; }
@@ -38,28 +38,28 @@ body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, 
 .pricing ul { list-style: none; text-align: left; margin: 15px 0; }
 .pricing ul li { padding: 6px 0; color: #555; font-size: 0.9em; }
 .pricing ul li::before { content: '\2713 '; color: #2e7d32; font-weight: bold; margin-right: 5px; }
-.pix-info { background: #fff3e0; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 0.85em; color: #e65100; border: 1px solid #ffcc02; }
 .footer-text { text-align: center; margin-top: 15px; font-size: 0.8em; color: #999; }
+.loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
+.loading-overlay.active { display: flex; }
+.spinner { width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #1a472a; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.forgot-link { text-align: right; margin-top: -10px; margin-bottom: 15px; }
+.forgot-link a { color: #1a472a; font-size: 0.85em; text-decoration: none; }
+.forgot-link a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
+<div class="loading-overlay" id="loading"><div class="spinner"></div></div>
 <div class="login-container">
 <div class="logo">FiscalizaPA</div>
 <div class="subtitle">Fiscalização Transparente de Deputados Federais</div>
 <div class="trial-badge">7 DIAS GRÁTIS - Experimente sem compromisso!</div>
 <div id="error-msg" class="error-msg"></div>
+<div id="success-msg" class="success-msg"></div>
 <div class="social-btns">
-<button class="btn-social google" onclick="loginSocial('Google')">
-<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+<button class="btn-social google" onclick="loginGoogle()">
+<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
 Entrar com Google
-</button>
-<button class="btn-social instagram" onclick="loginSocial('Instagram')">
-<svg viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="url(#ig)" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="url(#ig)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="url(#ig)"/></svg>
-Entrar com Instagram
-</button>
-<button class="btn-social apple" onclick="loginSocial('Apple')">
-<svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="#000"/></svg>
-Entrar com Apple
 </button>
 </div>
 <div class="divider"><span>ou entre com email</span></div>
@@ -70,6 +70,7 @@ Entrar com Apple
 <div id="login-form">
 <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="seu@email.com"></div>
 <div class="form-group"><label>Senha</label><input type="password" id="login-pass" placeholder="Digite sua senha"></div>
+<div class="forgot-link"><a href="#" onclick="resetPassword()">Esqueceu a senha?</a></div>
 <button class="btn-primary" onclick="loginEmail()">ENTRAR</button>
 </div>
 <div id="register-form" style="display:none">
@@ -89,66 +90,105 @@ Entrar com Apple
 <li>Alertas de novas denúncias em tempo real</li>
 <li>Exportação de dados em PDF</li>
 </ul>
-<div class="pix-info">Pagamento via <strong>PIX</strong> - Cancele quando quiser. Sem fidelidade.</div>
+<p style="font-size:0.85em;color:#666">Pagamento via <strong>PIX ou Cartão</strong> - Cancele quando quiser.</p>
 </div>
-<div class="footer-text">© 2025 FiscalizaPA - Todos os direitos reservados</div>
+<p class="footer-text">&copy; 2025 FiscalizaPA - Todos os direitos reservados</p>
 </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script>
+var firebaseConfig = {
+  apiKey: "AIzaSyDuII-aOUbsrVv3H-Qb_0XSe1XLV97Da24",
+  authDomain: "fiscallizapa.firebaseapp.com",
+  projectId: "fiscallizapa",
+  storageBucket: "fiscallizapa.firebasestorage.app",
+  messagingSenderId: "993207283220",
+  appId: "1:993207283220:web:b58b551b41104a3ada0101"
+};
+firebase.initializeApp(firebaseConfig);
+var auth = firebase.auth();
+
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    var userData = JSON.parse(localStorage.getItem('fiscaliza_user') || 'null');
+    var trialStart = userData && userData.trialStart ? userData.trialStart : new Date().toISOString();
+    localStorage.setItem('fiscaliza_user', JSON.stringify({
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName || user.email.split('@')[0],
+      provider: user.providerData[0] ? user.providerData[0].providerId : 'email',
+      loginDate: new Date().toISOString(),
+      trialStart: trialStart,
+      paid: userData ? userData.paid : false
+    }));
+    window.location.href = 'index.html';
+  }
+});
+
+function showLoading(v) { document.getElementById('loading').classList.toggle('active', v); }
+function showError(msg) { var el = document.getElementById('error-msg'); el.textContent = msg; el.style.display = 'block'; setTimeout(function(){ el.style.display = 'none'; }, 5000); }
+function showSuccess(msg) { var el = document.getElementById('success-msg'); el.textContent = msg; el.style.display = 'block'; setTimeout(function(){ el.style.display = 'none'; }, 5000); }
+
 function showTab(tab) {
-document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
-if(tab==='login'){
-document.querySelectorAll('.tab')[0].classList.add('active');
-document.getElementById('login-form').style.display='block';
-document.getElementById('register-form').style.display='none';
-} else {
-document.querySelectorAll('.tab')[1].classList.add('active');
-document.getElementById('login-form').style.display='none';
-document.getElementById('register-form').style.display='block';
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  if (tab === 'login') {
+    document.querySelectorAll('.tab')[0].classList.add('active');
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+  } else {
+    document.querySelectorAll('.tab')[1].classList.add('active');
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+  }
 }
+
+function loginGoogle() {
+  showLoading(true);
+  var provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(function(error) {
+    showLoading(false);
+    if (error.code === 'auth/popup-closed-by-user') return;
+    showError('Erro ao entrar com Google: ' + error.message);
+  });
 }
-function showError(msg){
-var el=document.getElementById('error-msg');
-el.textContent=msg; el.style.display='block';
-setTimeout(function(){el.style.display='none';},4000);
+
+function loginEmail() {
+  var email = document.getElementById('login-email').value;
+  var pass = document.getElementById('login-pass').value;
+  if (!email || !pass) { showError('Preencha email e senha'); return; }
+  showLoading(true);
+  auth.signInWithEmailAndPassword(email, pass).catch(function(error) {
+    showLoading(false);
+    if (error.code === 'auth/user-not-found') showError('Email nao cadastrado');
+    else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') showError('Senha incorreta');
+    else showError('Erro: ' + error.message);
+  });
 }
-function startSession(email, name, provider){
-var now=new Date().toISOString();
-var existing=JSON.parse(localStorage.getItem('fiscaliza_user')||'null');
-var trialStart = existing && existing.trialStart ? existing.trialStart : now;
-localStorage.setItem('fiscaliza_user', JSON.stringify({
-email: email,
-name: name || email.split('@')[0],
-provider: provider || 'email',
-loginDate: now,
-trialStart: trialStart,
-paid: existing ? existing.paid : false
-}));
-window.location.href='index.html';
+
+function registerEmail() {
+  var name = document.getElementById('reg-name').value;
+  var email = document.getElementById('reg-email').value;
+  var pass = document.getElementById('reg-pass').value;
+  if (!name || !email || !pass) { showError('Preencha todos os campos'); return; }
+  if (pass.length < 6) { showError('Senha deve ter no minimo 6 caracteres'); return; }
+  showLoading(true);
+  auth.createUserWithEmailAndPassword(email, pass).then(function(cred) {
+    return cred.user.updateProfile({ displayName: name });
+  }).catch(function(error) {
+    showLoading(false);
+    if (error.code === 'auth/email-already-in-use') showError('Email ja cadastrado. Faca login.');
+    else showError('Erro: ' + error.message);
+  });
 }
-function loginSocial(provider){
-var mockEmail = provider.toLowerCase() + '_user_' + Date.now() + '@' + provider.toLowerCase() + '.com';
-var mockName = 'Usu\u00e1rio ' + provider;
-startSession(mockEmail, mockName, provider);
-}
-function loginEmail(){
-var email=document.getElementById('login-email').value;
-var pass=document.getElementById('login-pass').value;
-if(!email||!pass){showError('Preencha email e senha');return;}
-startSession(email, email.split('@')[0], 'email');
-}
-function registerEmail(){
-var name=document.getElementById('reg-name').value;
-var email=document.getElementById('reg-email').value;
-var pass=document.getElementById('reg-pass').value;
-if(!name||!email||!pass){showError('Preencha todos os campos');return;}
-if(pass.length<6){showError('Senha deve ter no m\u00ednimo 6 caracteres');return;}
-startSession(email, name, 'email');
-}
-// Auto-redirect if logged in
-var user=JSON.parse(localStorage.getItem('fiscaliza_user')||'null');
-if(user){
-var days=Math.floor((new Date()-new Date(user.trialStart))/(864e5));
-if(days<=7||user.paid) window.location.href='index.html';
+
+function resetPassword() {
+  var email = document.getElementById('login-email').value;
+  if (!email) { showError('Digite seu email primeiro'); return; }
+  auth.sendPasswordResetEmail(email).then(function() {
+    showSuccess('Email de recuperacao enviado para ' + email);
+  }).catch(function(error) {
+    showError('Erro: ' + error.message);
+  });
 }
 </script>
 </body>
