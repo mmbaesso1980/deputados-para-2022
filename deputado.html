@@ -390,6 +390,26 @@ var html = '<p><strong>Total: ' + props.length + '</strong></p>';
 props.forEach(function(p){ html += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
 document.getElementById('proposicoes-content').innerHTML = html;
 }
+try {
+var allProps = await fetchAllPages(API + '/proposicoes?idDeputadoAutor=' + idCamara + '&ordem=DESC&ordenarPor=id');
+var tiposAutoria = ['PL','PEC','PLP','PDL','PRC'];
+var propsAutorPrincipal = [];
+var propsRelevantes = allProps.filter(function(p){ return tiposAutoria.indexOf(p.siglaTipo) >= 0; });
+for (var i = 0; i < propsRelevantes.length; i++) {
+try {
+var autores = await fetchJSON(API + '/proposicoes/' + propsRelevantes[i].id + '/autores');
+var ehAutorPrincipal = autores.dados && autores.dados.some(function(a){ return a.uri && a.uri.indexOf('/' + idCamara) >= 0 && (!a.ordemAssinatura || a.ordemAssinatura === 1); });
+if (ehAutorPrincipal) propsAutorPrincipal.push(propsRelevantes[i]);
+} catch(ae) { propsAutorPrincipal.push(propsRelevantes[i]); }
+}
+var props = propsAutorPrincipal;
+scoreData.proposicoes = props.length;
+if (props.length === 0) { document.getElementById('proposicoes-content').innerHTML = '<p>Nenhuma proposicao como autor principal.</p>'; }
+else {
+var html = '<p><strong>Total como Autor Principal: ' + props.length + '</strong> <span style="color:#888;font-size:0.85em">(de ' + allProps.length + ' com participacao)</span></p>';
+props.forEach(function(p){ html += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
+document.getElementById('proposicoes-content').innerHTML = html;
+}
 var pl = props.filter(function(p){return p.siglaTipo==='PL'||p.siglaTipo==='PEC'||p.siglaTipo==='PLP';});
 if (pl.length > 0) {
 var ahtml = '<p><strong>' + pl.length + ' PL/PEC/PLP</strong></p>';
@@ -398,15 +418,6 @@ document.getElementById('props-aprovadas-content').innerHTML = ahtml;
 } else { document.getElementById('props-aprovadas-content').innerHTML = '<p>Nenhum PL/PEC.</p>'; }
 updateScore();
 } catch(e) { document.getElementById('proposicoes-content').innerHTML = '<p class="alert">Erro: ' + e.message + '</p>'; }
-// 7. EMENDAS
-try {
-var emendasHtml = '<div class="kpi-grid"><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Total Emendas</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Valor Total</div></div><div class="kpi-card"><div class="kpi-num">-</div><div class="kpi-label">Municipios</div></div></div>';
-emendasHtml += '<p>Consulte emendas nos portais oficiais:</p><div style="margin:10px 0">';
-emendasHtml += '<a href="https://portaldatransparencia.gov.br/emendas?de=' + encodeURIComponent(depInfo.nome) + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#1a472a;color:white;border-radius:6px;text-decoration:none;margin:5px">Portal da Transparencia</a> ';
-emendasHtml += '<a href="https://www.camara.leg.br/deputados/' + idCamara + '" target="_blank" style="display:inline-block;padding:10px 20px;background:#2d5a3d;color:white;border-radius:6px;text-decoration:none;margin:5px">Pagina na Camara</a></div>';
-document.getElementById('emendas-content').innerHTML = emendasHtml;
-} catch(e) { console.error(e); }
-// 8. AUDITORIA CNPJ
 try {
 if (allDespesas.length > 0) {
 var fornecedores = {};
