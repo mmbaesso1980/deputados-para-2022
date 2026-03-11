@@ -390,6 +390,29 @@ var html = '<p><strong>Total: ' + props.length + '</strong></p>';
 props.forEach(function(p){ html += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
 document.getElementById('proposicoes-content').innerHTML = html;
 }
+        // Filter by main author (autor principal) in parallel batches
+      var tiposAutoria = ['PL','PEC','PLP','PDL','PRC'];
+      var propsRelevantes = props.filter(function(p){ return tiposAutoria.indexOf(p.siglaTipo) >= 0; });
+      if (propsRelevantes.length > 0) {
+        var propsAutorPrincipal = [];
+        for (var bi = 0; bi < propsRelevantes.length; bi += 5) {
+          var batch = propsRelevantes.slice(bi, bi + 5);
+          var results = await Promise.all(batch.map(function(prop) {
+            return fetchJSON(API + '/proposicoes/' + prop.id + '/autores').then(function(autores) {
+              var ehAutor = autores.dados && autores.dados.some(function(a) { return a.uri && a.uri.indexOf('/' + idCamara) >= 0 && (!a.ordemAssinatura || a.ordemAssinatura === 1); });
+              return ehAutor ? prop : null;
+            }).catch(function() { return prop; });
+          }));
+          results.forEach(function(r) { if (r) propsAutorPrincipal.push(r); });
+        }
+        var propsNaoLegislativas = props.filter(function(p){ return tiposAutoria.indexOf(p.siglaTipo) < 0; });
+        props = propsAutorPrincipal.concat(propsNaoLegislativas);
+        scoreData.proposicoes = props.length;
+        var html2 = '<p><strong>Autor Principal: ' + propsAutorPrincipal.length + '</strong> <span style="color:#888;font-size:0.85em">(de ' + propsRelevantes.length + ' legislativas com participacao)</span></p>';
+        props.forEach(function(p){ html2 += '<div class="prop-item"><a href="https://www.camara.leg.br/propostas-legislativas/' + p.id + '" target="_blank">' + p.siglaTipo + ' ' + p.numero + '/' + p.ano + '</a><br><small>' + (p.ementa||'').substring(0,200) + '</small></div>'; });
+        document.getElementById('proposicoes-content').innerHTML = html2;
+        updateScore();
+      }
 var pl = props.filter(function(p){return p.siglaTipo==='PL'||p.siglaTipo==='PEC'||p.siglaTipo==='PLP';});
 if (pl.length > 0) {
 var ahtml = '<p><strong>' + pl.length + ' PL/PEC/PLP</strong></p>';
