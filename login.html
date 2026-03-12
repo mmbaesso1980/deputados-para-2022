@@ -121,7 +121,7 @@ auth.onAuthStateChanged(function(user) {
       trialStart: trialStart,
       paid: userData ? userData.paid : false
     }));
-    window.location.href = 'index.html';
+            window.location.href = (userData && (userData.paid || userData.trialStart)) ? 'index.html' : 'planos.html';
   }
 });
 
