@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FiscalizaPA - Planos e Preços</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh}
+nav{background:#0d0d1a;border-bottom:1px solid #1a1a2e;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:1.3em;font-weight:700;color:#4fc3f7;text-decoration:none}
+.nav-links a{color:#aaa;text-decoration:none;margin-left:20px;font-size:.9em}
+.nav-links a:hover{color:#4fc3f7}
+.hero{text-align:center;padding:64px 20px 40px;background:#0d0d1a}
+.hero h1{font-size:2.2em;font-weight:800;margin-bottom:12px;background:linear-gradient(135deg,#4fc3f7,#0288d1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#888;font-size:1.05em;max-width:540px;margin:0 auto 28px}
+.toggle-bar{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px}
+.toggle-label{color:#aaa;font-size:.9em}
+.toggle-switch{width:48px;height:26px;background:#222;border-radius:13px;cursor:pointer;position:relative;border:1px solid #333;transition:.3s}
+.toggle-switch.active{background:#0288d1}
+.toggle-knob{width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:2px;left:3px;transition:.3s}
+.toggle-switch.active .toggle-knob{left:25px}
+.saving-badge{background:#1a3a1a;color:#4caf50;font-size:.8em;padding:4px 10px;border-radius:20px;border:1px solid #2e7d32}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1000px;margin:0 auto;padding:20px;gap:24px}
+.plan-card{background:#111;border:1px solid #1e1e2e;border-radius:16px;padding:28px;position:relative;transition:.3s}
+.plan-card:hover{border-color:#4fc3f7;transform:translateY(-4px);box-shadow:0 12px 40px rgba(79,195,247,.1)}
+.plan-card.popular{border-color:#4fc3f7;box-shadow:0 0 30px rgba(79,195,247,.15)}
+.plan-card.enterprise{border-color:#7c3aed}
+.popular-badge,.enterprise-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:.75em;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.popular-badge{background:linear-gradient(135deg,#4fc3f7,#0288d1);color:#000}
+.enterprise-badge{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff}
+.plan-icon{font-size:2em;margin-bottom:10px}
+.plan-name{font-size:1.4em;font-weight:700;margin-bottom:4px}
+.plan-subtitle{color:#666;font-size:.85em;margin-bottom:20px}
+.plan-price{margin-bottom:20px}
+.price-main{font-size:2.4em;font-weight:800;color:#4fc3f7}
+.price-main.purple{color:#a78bfa}
+.price-period{color:#666;font-size:.9em;margin-left:4px}
+.price-annual{display:block;color:#4caf50;font-size:.8em;margin-top:4px;min-height:18px}
+.credits-highlight{background:#0d1117;border:1px solid #4fc3f7;border-radius:10px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.credits-highlight .num{font-size:1.6em;font-weight:800;color:#4fc3f7}
+.credits-highlight .lbl{color:#888;font-size:.8em}
+.features-list{list-style:none;margin-bottom:24px}
+.features-list li{padding:7px 0;border-bottom:1px solid #1a1a1a;font-size:.88em;color:#ccc;display:flex;align-items:center;gap:8px}
+.feat-check{color:#4fc3f7;font-weight:700}
+.feat-check.purple{color:#a78bfa}
+.btn-plan{display:block;text-align:center;padding:13px;border-radius:10px;font-weight:700;font-size:.95em;text-decoration:none;transition:.2s;cursor:pointer;border:none;width:100%}
+.btn-free{background:#1a1a1a;border:1px solid #333;color:#aaa}
+.btn-free:hover{border-color:#4fc3f7;color:#4fc3f7}
+.btn-premium{background:linear-gradient(135deg,#4fc3f7,#0288d1);color:#000}
+.btn-premium:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,195,247,.4)}
+.btn-enterprise{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff}
+.btn-enterprise:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,.4)}
+.faq{max-width:700px;margin:40px auto 60px;padding:0 20px}
+.faq h2{text-align:center;color:#fff;margin-bottom:24px;font-size:1.5em}
+.faq-item{background:#111;border:1px solid #222;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.faq-q{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;font-weight:600;color:#e0e0e0}
+.faq-q:hover{background:#1a1a1a}
+.faq-a{padding:0 20px 16px;color:#888;font-size:.9em;line-height:1.6;display:none}
+.faq-a.open{display:block}
+.trust-bar{background:#111;border-top:1px solid #222;padding:30px 20px;text-align:center}
+.trust-bar p{color:#666;font-size:.85em}
+.trust-bar strong{color:#4fc3f7}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">🔍 FiscalizaPA</a>
+  <div class="nav-links">
+    <a href="index.html">Início</a>
+    <a href="conta.html">Minha Conta</a>
+    <a href="dashboard.html">Dashboard</a>
+  </div>
+</nav>
+<div class="hero">
+  <h1>Transparência que vale cada centavo</h1>
+  <p>Fiscalize seus representantes. 7 dias grátis no Premium.</p>
+  <div class="toggle-bar">
+    <span class="toggle-label">Mensal</span>
+    <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"><div class="toggle-knob"></div></div>
+    <span class="toggle-label">Anual</span>
+    <span class="saving-badge">Economize 20%</span>
+  </div>
+</div>
+<div class="plans-grid">
+  <div class="plan-card">
+    <div class="plan-icon">🔍</div>
+    <div class="plan-name">Gratuito</div>
+    <div class="plan-subtitle">Para cidadãos curiosos</div>
+    <div class="plan-price">
+      <span class="price-main" style="color:#aaa">R$ 0</span>
+      <span class="price-period">/ sempre</span>
+      <span class="price-annual">&nbsp;</span>
+    </div>
+    <div class="credits-highlight" style="border-color:#333">
+      <div class="num" style="color:#aaa">10</div>
+      <div class="lbl">consultas IA / mês</div>
+    </div>
+    <ul class="features-list">
+      ><span class="feat-check">✓</span> Perfis dos 17 deputados do PA</li>
+      ><span class="feat-check">✓</span> Gastos CEAP básicos</li>
+      ><span class="feat-check">✓</span> Presença em sessões</li>
+      ><span class="feat-check">✓</span> Proposições públicas</li>
+      ><span class="feat-check">✓</span> 10 consultas IA/mês</li>
+    </ul>
+    <a href="login.html" class="btn-plan btn-free">Começar Grátis</a>
+  </div>
+  <div class="plan-card popular">
+    <div class="popular-badge">⭐ MAIS POPULAR</div>
+    <div class="plan-icon">⚡</div>
+    <div class="plan-name">Premium</div>
+    <div class="plan-subtitle">Para jornalistas e ativistas</div>
+    <div class="plan-price">
+      <span class="price-main" id="price-premium">R$ 39,90</span>
+      <span class="price-period" id="period-premium">/ mês</span>
+      <span class="price-annual" id="saving-premium"></span>
+    </div>
+    <div class="credits-highlight">
+      <div class="num">100</div>
+      <div class="lbl">créditos IA / dia</div>
+    </div>
+    <ul class="features-list">
+      ><span class="feat-check">✓</span> Tudo do plano Gratuito</li>
+      ><span class="feat-check">✓</span> 100 créditos IA por dia</li>
+      ><span class="feat-check">✓</span> Análise completa CEAP</li>
+      ><span class="feat-check">✓</span> Parecer técnico IA</li>
+      ><span class="feat-check">✓</span> Investigar notas suspeitas</li>
+      ><span class="feat-check">✓</span> Análise IDH x Emendas</li>
+      ><span class="feat-check">✓</span> Alertas de mudanças</li>
+      ><span class="feat-check">✓</span> Exportação PDF</li>
+    </ul>
+    <a href="conta.html" class="btn-plan btn-premium" onclick="assinar('premium')">Assinar Premium</a>
+    <p style="text-align:center;color:#666;font-size:.8em;margin-top:10px">7 dias grátis para novos usuários</p>
+  </div>
+  <div class="plan-card enterprise">
+    <div class="enterprise-badge">PRO</div>
+    <div class="plan-icon">🏭</div>
+    <div class="plan-name">Enterprise</div>
+    <div class="plan-subtitle">Para veículos e organizações</div>
+    <div class="plan-price">
+      <span class="price-main purple" id="price-enterprise">R$ 199</span>
+      <span class="price-period" id="period-enterprise">/ mês</span>
+      <span class="price-annual" id="saving-enterprise"></span>
+    </div>
+    <div class="credits-highlight" style="border-color:#7c3aed">
+      <div class="num" style="color:#a78bfa">∞</div>
+      <div class="lbl">créditos IA + API access</div>
+    </div>
+    <ul class="features-list">
+      ><span class="feat-check purple">✓</span> Tudo do Premium</li>
+      ><span class="feat-check purple">✓</span> Créditos ilimitados</li>
+      ><span class="feat-check purple">✓</span> Acesso API REST</li>
+      ><span class="feat-check purple">✓</span> Todos os estados do Brasil</li>
+      ><span class="feat-check purple">✓</span> Relatórios white-label</li>
+      ><span class="feat-check purple">✓</span> Suporte prioritário</li>
+      ><span class="feat-check purple">✓</span> Dashboard personalizado</li>
+      ><span class="feat-check purple">✓</span> Multi-usuários (até 10)</li>
+    </ul>
+    <a href="mailto:contato@transparenciabr.com.br" class="btn-plan btn-enterprise">Falar com Vendas</a>
+  </div>
+</div>
+<div class="faq">
+  <h2>Perguntas Frequentes</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Como funcionam os créditos? <span>+</span></div>
+    <div class="faq-a">Cada consulta à IA consome créditos. Ver perfil é grátis. Chat IA custa 3 créditos. Análise completa custa 5-8 créditos.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Posso cancelar a qualquer momento? <span>+</span></div>
+    <div class="faq-a">Sim. Sem multa ou fidelidade. Cancele quando quiser pela página Minha Conta.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Os 7 
